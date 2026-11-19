@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tolerancijos viktorina 7 metų vaikams (1–4 kl.)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-display: 'Fredoka', 'Baloo 2', 'Nunito', 'Arial Rounded MT Bold', system-ui, sans-serif;
+      --font-body: 'Nunito', 'Arial Rounded MT Bold', system-ui, -apple-system, sans-serif;
+      --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --smooth: cubic-bezier(0.22, 1, 0.36, 1);
+      --shadow-card: 0 14px 34px rgba(15, 23, 42, 0.14), 0 4px 12px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: var(--font-body);
+      color: #0f172a;
+      background: #bae6fd;
+    }
+
+    .app {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: background 0.8s var(--smooth);
+    }
+
+    .app[data-bg="0"]  { background: linear-gradient(135deg, #bae6fd 0%, #fef08a 52%, #fbcfe8 100%); }
+    .app[data-bg="1"]  { background: linear-gradient(135deg, #fde68a 0%, #fbcfe8 55%, #c7d2fe 100%); }
+    .app[data-bg="2"]  { background: linear-gradient(135deg, #a7f3d0 0%, #bae6fd 50%, #fde68a 100%); }
+    .app[data-bg="3"]  { background: linear-gradient(135deg, #ddd6fe 0%, #fbcfe8 50%, #fed7aa 100%); }
+    .app[data-bg="4"]  { background: linear-gradient(135deg, #bbf7d0 0%, #fef08a 52%, #fecaca 100%); }
+    .app[data-bg="5"]  { background: linear-gradient(135deg, #93c5fd 0%, #c7d2fe 50%, #fde68a 100%); }
+    .app[data-bg="6"]  { background: linear-gradient(135deg, #fed7aa 0%, #fef08a 50%, #a7f3d0 100%); }
+    .app[data-bg="7"]  { background: linear-gradient(135deg, #fbcfe8 0%, #e0f2fe 52%, #fef9c3 100%); }
+    .app[data-bg="8"]  { background: linear-gradient(135deg, #c4b5fd 0%, #bae6fd 50%, #bbf7d0 100%); }
+    .app[data-bg="9"]  { background: linear-gradient(135deg, #fecdd3 0%, #fde68a 50%, #bae6fd 100%); }
+    .app[data-bg="10"] { background: linear-gradient(135deg, #fef08a 0%, #bbf7d0 50%, #fbcfe8 100%); }
+
+    /* Ambient animated background */
+    .bg-decor {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .cloud {
+      position: absolute;
+      opacity: 0.78;
+      animation: driftCloud 34s linear infinite;
+    }
+    .cloud-1 { top: 7%; left: -15%; width: 150px; animation-duration: 36s; }
+    .cloud-2 { bottom: 14%; left: -20%; width: 130px; animation-duration: 46s; animation-delay: -18s; opacity: 0.6; }
+    .bg-star {
+      position: absolute;
+      animation: twinkle 3s ease-in-out infinite;
+    }
+    .bg-bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.85), rgba(255,255,255,0.18));
+      border: 2px solid rgba(255,255,255,0.55);
+      animation: floatBubble 12s ease-in-out infinite;
+    }
+
+    /* Top Bar */
+    .top-bar {
+      position: relative;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 22px 6px;
+      gap: 12px;
+      flex-shrink: 0;
+      flex-wrap: wrap;
+    }
+    .top-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 2px solid #ffffff;
+      background: rgba(255, 255, 255, 0.9);
+      color: #0f172a;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(0.82rem, 1.15vw, 0.96rem);
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s var(--spring), background 0.2s;
+    }
+    .top-btn:hover { transform: translateY(-2px) scale(1.04); background: #ffffff; }
+    .top-btn.muted { background: rgba(254, 226, 226, 0.92); color: #991b1b; }
+
+    .hud-center {
+      flex: 1;
+      max-width: 480px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(8px);
+      padding: 6px 14px;
+      border-radius: 999px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+    }
+    .progress-track {
+      flex: 1;
+      height: 12px;
+      background: rgba(148, 163, 184, 0.28);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #f43f5e, #f59e0b, #22c55e, #3b82f6, #a855f7);
+      background-size: 200% 100%;
+      animation: rainbowShift 4s linear infinite;
+      transition: width 0.55s var(--spring);
+    }
+    .score-pill {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.98rem;
+      color: #b45309;
+      background: #fef9c3;
+      border: 2px solid #facc15;
+      padding: 2px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Main Stage */
+    .stage {
+      position: relative;
+      z-index: 10;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 22px 16px;
+      min-height: 0;
+    }
+
+    .quiz-shell {
+      width: 100%;
+      max-width: 980px;
+      max-height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      border: 4px solid #ffffff;
+      border-radius: 32px;
+      box-shadow: var(--shadow-card);
+      padding: clamp(16px, 2.5vh, 28px) clamp(18px, 3vw, 36px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(10px, 1.5vh, 16px);
+      overflow-y: auto;
+      animation: popSlide 0.55s var(--spring);
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 18px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ec4899, #f59e0b);
+      color: #ffffff;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(0.85rem, 1.3vw, 1.05rem);
+      border: 2px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 6px 16px rgba(236, 72, 153, 0.28);
+    }
+
+    h1, h2 {
+      font-family: var(--font-display);
+      text-align: center;
+      color: #0f172a;
+      line-height: 1.15;
+    }
+
+    /* Mascot Bunny SVG */
+    .mascot-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+    .mascot-svg {
+      width: clamp(78px, 12vh, 110px);
+      height: clamp(78px, 12vh, 110px);
+      animation: bounceSoft 2.6s ease-in-out infinite;
+      overflow: visible;
+    }
+    .mascot-svg.celebrate {
+      animation: jumpJoy 0.55s var(--spring) 2;
+    }
+    .mascot-bubble {
+      background: #eff6ff;
+      border: 2.5px solid #93c5fd;
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-weight: 800;
+      font-size: clamp(0.92rem, 1.35vw, 1.1rem);
+      color: #1e3a8a;
+      max-width: 520px;
+      box-shadow: 0 6px 14px rgba(59, 130, 246, 0.12);
+    }
+
+    /* Question Header & Options */
+    .q-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .q-num-pill {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      color: #4338ca;
+      background: #e0e7ff;
+      padding: 5px 14px;
+      border-radius: 999px;
+      border: 2px solid #c7d2fe;
+    }
+    .stars-row {
+      display: flex;
+      gap: 4px;
+      font-size: 1.15rem;
+    }
+    .star-dot {
+      filter: grayscale(100%) opacity(0.3);
+      transition: transform 0.35s var(--spring), filter 0.3s;
+    }
+    .star-dot.earned {
+      filter: none;
+      transform: scale(1.22);
+    }
+
+    .question-box {
+      width: 100%;
+      background: linear-gradient(135deg, #fefce8 0%, #eff6ff 100%);
+      border: 3px solid #fde047;
+      border-radius: 24px;
+      padding: clamp(12px, 2vh, 20px) 22px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.15rem, 2.1vw, 1.65rem);
+      text-align: center;
+      color: #0f172a;
+      line-height: 1.3;
+      box-shadow: 0 8px 20px rgba(234, 179, 8, 0.14);
+    }
+
+    .options-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(10px, 1.5vh, 14px);
+    }
+
+    .opt-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: clamp(11px, 1.6vh, 16px) 16px;
+      border-radius: 22px;
+      border: 3px solid #ffffff;
+      background: #ffffff;
+      box-shadow: 0 7px 0 rgba(148, 163, 184, 0.25), 0 10px 20px rgba(15, 23, 42, 0.08);
+      text-align: left;
+      font-family: var(--font-body);
+      font-weight: 800;
+      font-size: clamp(0.95rem, 1.35vw, 1.15rem);
+      color: #1e293b;
+      cursor: pointer;
+      transition: transform 0.22s var(--spring), background 0.25s, border-color 0.25s, box-shadow 0.25s, opacity 0.25s;
+      animation: cardEnter 0.45s var(--spring) backwards;
+    }
+    .opt-btn:nth-child(1) { animation-delay: 0.04s; border-color: #fbcfe8; }
+    .opt-btn:nth-child(2) { animation-delay: 0.10s; border-color: #bae6fd; }
+    .opt-btn:nth-child(3) { animation-delay: 0.16s; border-color: #bbf7d0; }
+    .opt-btn:nth-child(4) { animation-delay: 0.22s; border-color: #fde68a; }
+
+    .opt-btn:hover:not(:disabled) {
+      transform: translateY(-4px) scale(1.02);
+      background: #fef9c3;
+      border-color: #f59e0b;
+    }
+    .opt-btn:active:not(:disabled) {
+      transform: translateY(2px) scale(0.99);
+    }
+    .opt-btn:disabled {
+      cursor: default;
+    }
+
+    .opt-letter {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      color: #ffffff;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .opt-btn:nth-child(1) .opt-letter { background: linear-gradient(135deg, #f43f5e, #ec4899); }
+    .opt-btn:nth-child(2) .opt-letter { background: linear-gradient(135deg, #3b82f6, #06b6d4); }
+    .opt-btn:nth-child(3) .opt-letter { background: linear-gradient(135deg, #10b981, #22c55e); }
+    .opt-btn:nth-child(4) .opt-letter { background: linear-gradient(135deg, #f59e0b, #f97316); }
+
+    .opt-btn.correct {
+      background: linear-gradient(135deg, #dcfce7, #bbf7d0) !important;
+      border-color: #16a34a !important;
+      box-shadow: 0 0 0 3px #22c55e, 0 8px 18px rgba(34, 197, 94, 0.25) !important;
+      color: #14532d;
+      transform: scale(1.02);
+    }
+    .opt-btn.wrong {
+      background: linear-gradient(135deg, #fee2e2, #fecaca) !important;
+      border-color: #dc2626 !important;
+      color: #7f1d1d;
+      animation: shakeGentle 0.4s ease;
+    }
+    .opt-btn.dimmed {
+      opacity: 0.52;
+    }
+
+    /* Explanation Banner */
+    .feedback-box {
+      width: 100%;
+      padding: 12px 18px;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: clamp(0.92rem, 1.3vw, 1.08rem);
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      animation: popSlide 0.35s var(--spring);
+    }
+    .feedback-box.ok {
+      display: flex;
+      background: #dcfce7;
+      border: 2.5px solid #22c55e;
+      color: #166534;
+    }
+    .feedback-box.bad {
+      display: flex;
+      background: #fef3c7;
+      border: 2.5px solid #f59e0b;
+      color: #92400e;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 26px;
+      border-radius: 999px;
+      border: 3px solid #ffffff;
+      background: linear-gradient(135deg, #ff5e7e, #ff9642);
+      color: #ffffff;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1rem, 1.5vw, 1.24rem);
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 6px 0 rgba(0, 0, 0, 0.16), 0 10px 20px rgba(249, 115, 22, 0.25);
+      transition: transform 0.22s var(--spring);
+      flex-shrink: 0;
+    }
+    .cta-btn:hover { transform: translateY(-3px) scale(1.05); }
+    .cta-btn:active { transform: translateY(2px); }
+    .cta-btn.green {
+      background: linear-gradient(135deg, #22c55e, #059669);
+      box-shadow: 0 6px 0 #15803d;
+    }
+    .cta-btn.blue {
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+      box-shadow: 0 6px 0 #3730a3;
+    }
+
+    .diploma-banner {
+      background: linear-gradient(135deg, #fef08a, #fde047, #f59e0b);
+      border: 4px solid #ffffff;
+      border-radius: 26px;
+      padding: 16px 26px;
+      color: #78350f;
+      box-shadow: 0 12px 28px rgba(245, 158, 11, 0.38);
+      text-align: center;
+      width: 100%;
+    }
+
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 99;
+    }
+
+    @keyframes driftCloud { from { transform: translateX(0); } to { transform: translateX(135vw); } }
+    @keyframes twinkle { 0%,100% { transform: scale(0.85) rotate(0); opacity: 0.45; } 50% { transform: scale(1.22) rotate(18deg); opacity: 1; } }
+    @keyframes floatBubble { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-24px); } }
+    @keyframes rainbowShift { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+    @keyframes bounceSoft { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @keyframes jumpJoy { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-18px) scale(1.12); } }
+    @keyframes popSlide { 0% { opacity: 0; transform: scale(0.92) translateY(14px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+    @keyframes cardEnter { 0% { opacity: 0; transform: translateY(18px) scale(0.94); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes shakeGentle { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-7px); } 75% { transform: translateX(7px); } }
+
+    @media (max-width: 760px) {
+      .options-grid { grid-template-columns: 1fr; }
+      .feedback-box { flex-direction: column; text-align: center; }
+      .mascot-wrap { flex-direction: column; text-align: center; }
+      .hud-center { order: 3; max-width: 100%; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="confetti-canvas"></canvas>
+
+  <div class="app" id="app" data-bg="0">
+    <!-- Background Decor -->
+    <div class="bg-decor" aria-hidden="true">
+      <svg class="cloud cloud-1" viewBox="0 0 180 90">
+        <path d="M35 72 H145 A22 22 0 0 0 148 29 A32 32 0 0 0 88 18 A26 26 0 0 0 40 34 A20 20 0 0 0 35 72 Z" fill="#ffffff"/>
+      </svg>
+      <svg class="cloud cloud-2" viewBox="0 0 180 90">
+        <path d="M35 72 H145 A22 22 0 0 0 148 29 A32 32 0 0 0 88 18 A26 26 0 0 0 40 34 A20 20 0 0 0 35 72 Z" fill="#ffffff"/>
+      </svg>
+      <svg class="bg-star" style="top:15%; left:6%; width:26px;" viewBox="0 0 40 40">
+        <polygon points="20,2 25,14 38,15 28,24 31,37 20,30 9,37 12,24 2,15 15,14" fill="#fde047"/>
+      </svg>
+      <svg class="bg-star" style="top:22%; right:7%; width:24px; animation-delay:1s;" viewBox="0 0 40 40">
+        <polygon points="20,2 25,14 38,15 28,24 31,37 20,30 9,37 12,24 2,15 15,14" fill="#f472b6"/>
+      </svg>
+      <div class="bg-bubble" style="width:46px; height:46px; left:4%; bottom:20%;"></div>
+      <div class="bg-bubble" style="width:34px; height:34px; right:5%; bottom:24%; animation-delay:4s;"></div>
+    </div>
+
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <a class="top-btn" href="index.html" title="Grįžti į pagrindinę prezentaciją">⬅ Prezentacija</a>
+
+      <div class="hud-center">
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="score-pill" id="score-pill">⭐ 0 / 10</div>
+      </div>
+
+      <div class="top-actions">
+        <button class="top-btn" id="sound-btn">🔊 Garsas</button>
+        <button class="top-btn" id="fireworks-btn">🎉 Fejerverkai</button>
+        <button class="top-btn" id="fullscreen-btn">⛶ Visas ekranas</button>
+      </div>
+    </header>
+
+    <!-- Main Dynamic Stage -->
+    <main class="stage">
+      <section class="quiz-shell" id="quiz-shell">
+        <!-- Rendered dynamically by JS -->
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      const questions = [
+        {
+          q: "Kada kasmet yra minima Tarptautinė tolerancijos diena?",
+          options: [
+            "Lapkričio 16-ąją",
+            "Rugsėjo 1-ąją",
+            "Gruodžio 25-ąją",
+            "Sausio 1-ąją"
+          ],
+          correct: 0,
+          explain: "Tarptautinė tolerancijos diena visame pasaulyje ir Lietuvoje kasmet minima lapkričio 16-ąją!"
+        },
+        {
+          q: "Ką reiškia žodis „tolerancija“?",
+          options: [
+            "Kad visi vaikai privalo žaisti tik tą patį žaidimą",
+            "Pakantumą, pagarbą ir gebėjimą priimti kitą tokį, koks jis yra",
+            "Kad reikia draugauti tik su vienodai atrodančiais vaikais",
+            "Kad visada reikia su visais ginčytis"
+          ],
+          correct: 1,
+          explain: "Tolerancija – tai pagarba, draugiškumas ir pakantumas kitiems, net kai jie skiriasi nuo mūsų."
+        },
+        {
+          q: "Kuo žmonės gali skirtis vieni nuo kitų?",
+          options: [
+            "Tik batų dydžiu",
+            "Žmonės visai niekuo nesiskiria",
+            "Išvaizda, kalba, pomėgiais, tradicijomis ir nuomone",
+            "Tik kuprinės spalva"
+          ],
+          correct: 2,
+          explain: "Kiekvienas esame unikalus – skiriamės išvaizda, pomėgiais, kalba ir charakteriu, ir tai daro pasaulį spalvingą!"
+        },
+        {
+          q: "Ką pasakoje ir filmuke „Kiškio obuoliai“ gerasis kiškis darė su obuoliais keliaudamas namo?",
+          options: [
+            "Visus obuolius suvalgė pats vienas",
+            "Draugiškai dalijosi obuoliais su sutiktais miško žvėreliais",
+            "Paslėpė po dideliu akmeniu",
+            "Išmėtė į upę"
+          ],
+          correct: 1,
+          explain: "Kiškis noriai dalijosi su visais sutiktais – gerumas ir dalinimasis visada sugrįžta su kaupu!"
+        },
+        {
+          q: "Kaip pasielgia tolerantiškas vaikas, kai į klasę ateina naujokas, kuris nedrąsiai stovi vienas?",
+          options: [
+            "Apsimeta, kad jo visai nemato",
+            "Šnabždasi apie jį su draugais kampe",
+            "Prieina, nusišypso, pasisveikina ir pakviečia žaisti kartu",
+            "Pasako, kad žaidime jam nebėra vietos"
+          ],
+          correct: 2,
+          explain: "Šilta šypsena ir kvietimas žaisti kartu padeda naujokui iškart pasijusti saugiam ir laukiamam!"
+        },
+        {
+          q: "Kokius simbolius Lietuvos mokiniai dažnai kuria minėdami Tolerancijos dieną?",
+          options: [
+            "Tolerancijos švyturį, namą, dėlionę arba taikos paukštį",
+            "Didelę ledų porciją",
+            "Kosminę raketą",
+            "Sniego senį"
+          ],
+          correct: 0,
+          explain: "Lietuvos mokyklose kasmet kuriami gražūs simboliai: Tolerancijos švyturys, namas, gatvė, paukštis ar dėlionė."
+        },
+        {
+          q: "Draugas per dailės pamoką nupiešė mėlyną saulę. Ką jam pasakys tolerantiškas bendraklasis?",
+          options: [
+            "„Tu visai nemoki piešti!“",
+            "„Oho, koks įdomus ir kūrybiškas tavo piešinys!“",
+            "Užbrauks draugo piešinį pieštuku",
+            "Pasijuoks kartu su kitais"
+          ],
+          correct: 1,
+          explain: "Kiekvienas matome ir kuriame pasaulį savaip – palaikantys žodžiai labai džiugina draugą!"
+        },
+        {
+          q: "Ką daryti, jei su draugu pertraukos metu norite žaisti skirtingus žaidimus?",
+          options: [
+            "Supykti ir visai nebekalbėti",
+            "Atimti iš draugo žaislą",
+            "Draugiškai susitarti ir pažaisti abu žaidimus iš eilės",
+            "Šaukti, kol kitas nusileis"
+          ],
+          correct: 2,
+          explain: "Susitarimas – tikra supergalia! Kai žaidžiame pakaitomis, laimingi būna visi."
+        },
+        {
+          q: "Kuris poelgis yra NETOLERANTIŠKAS (raudona šviesoforo šviesa 🔴)?",
+          options: [
+            "Padėti draugui surinkti išbirusius pieštukus",
+            "Atidžiai išklausyti draugą iki galo",
+            "Pravardžiuoti, tyčiotis arba atstumti kitą vaiką iš žaidimo",
+            "Pasakyti „Ačiū“ ir „Atsiprašau“"
+          ],
+          correct: 2,
+          explain: "Patyčioms, pravardžiavimui ir atstūmimui sakome griežtą STOP – tai labai skaudina kitus!"
+        },
+        {
+          q: "Kokie „stebuklingi žodžiai“ padeda augti draugystei ir tolerancijai kiekvieną dieną?",
+          options: [
+            "„Ačiū“, „Prašau“, „Atsiprašau“, „Ar galiu tau padėti?“",
+            "„Pasitrauk“, „Man visai nerūpi“",
+            "„Aš svarbiausias“, „Tu nieko nemoki“",
+            "Tylėjimas ir nusisukimas nuo kitų"
+          ],
+          correct: 0,
+          explain: "Mandagūs ir švelnūs žodžiai tarsi saulės spinduliai sušildo kiekvieno širdį!"
+        }
+      ];
+
+      const letters = ["A", "B", "C", "D"];
+      let step = -1; // -1 = intro, 0..9 = questions, 10 = final
+      let score = 0;
+      let earnedList = new Array(questions.length).fill(false);
+      let answered = false;
+      let soundEnabled = true;
+      let audioCtx = null;
+
+      const app = document.getElementById("app");
+      const shell = document.getElementById("quiz-shell");
+      const progressFill = document.getElementById("progress-fill");
+      const scorePill = document.getElementById("score-pill");
+      const soundBtn = document.getElementById("sound-btn");
+      const fireworksBtn = document.getElementById("fireworks-btn");
+      const fullscreenBtn = document.getElementById("fullscreen-btn");
+
+      /* ========== WEB AUDIO ========== */
+      function ensureAudio() {
+        if (!soundEnabled) return null;
+        if (!audioCtx) {
+          const Ctx = window.AudioContext || window.webkitAudioContext;
+          if (Ctx) audioCtx = new Ctx();
+        }
+        if (audioCtx && audioCtx.state === "suspended") audioCtx.resume();
+        return audioCtx;
+      }
+
+      function playTone(freq, duration = 0.16, type = "sine", volume = 0.12, delay = 0) {
+        const ctx = ensureAudio();
+        if (!ctx) return;
+        const now = ctx.currentTime + delay;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, now);
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.exponentialRampToValueAtTime(volume, now + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + duration + 0.02);
+      }
+
+      function playSuccess() {
+        playTone(523.25, 0.14, "sine", 0.13, 0);
+        playTone(659.25, 0.14, "sine", 0.13, 0.09);
+        playTone(783.99, 0.24, "sine", 0.14, 0.18);
+      }
+
+      function playGentleWrong() {
+        playTone(320, 0.16, "triangle", 0.1, 0);
+        playTone(260, 0.22, "triangle", 0.1, 0.12);
+      }
+
+      function playFanfare() {
+        [523.25, 659.25, 783.99, 1046.5].forEach((f, idx) =>
+          playTone(f, 0.25, "triangle", 0.14, idx * 0.1)
+        );
+        playTone(1046.5, 0.55, "sine", 0.14, 0.45);
+      }
+
+      /* ========== CONFETTI ========== */
+      const canvas = document.getElementById("confetti-canvas");
+      const ctx2d = canvas.getContext("2d");
+      let particles = [];
+      let rafId = null;
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener("resize", resizeCanvas);
+      resizeCanvas();
+
+      const colors = ["#ef4444", "#f97316", "#facc15", "#22c55e", "#3b82f6", "#a855f7", "#ec4899"];
+
+      function launchConfetti(count = 75, ox = canvas.width / 2, oy = canvas.height * 0.42) {
+        for (let i = 0; i < count; i++) {
+          const ang = Math.random() * Math.PI * 2;
+          const spd = 3 + Math.random() * 10;
+          particles.push({
+            x: ox,
+            y: oy,
+            vx: Math.cos(ang) * spd,
+            vy: Math.sin(ang) * spd - 3.5,
+            size: 6 + Math.random() * 7,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            rot: Math.random() * 360,
+            rotSpd: (Math.random() - 0.5) * 14,
+            life: 1
+          });
+        }
+        if (!rafId) tickConfetti();
+      }
+
+      function launchCelebration() {
+        launchConfetti(90, canvas.width * 0.25, canvas.height * 0.45);
+        launchConfetti(90, canvas.width * 0.75, canvas.height * 0.45);
+        setTimeout(() => launchConfetti(120, canvas.width * 0.5, canvas.height * 0.3), 240);
+      }
+
+      function tickConfetti() {
+        ctx2d.clearRect(0, 0, canvas.width, canvas.height);
+        particles = particles.filter(p => p.life > 0.02 && p.y < canvas.height + 30);
+        for (const p of particles) {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.24;
+          p.vx *= 0.985;
+          p.rot += p.rotSpd;
+          p.life -= 0.009;
+
+          ctx2d.save();
+          ctx2d.globalAlpha = Math.max(0, p.life);
+          ctx2d.translate(p.x, p.y);
+          ctx2d.rotate((p.rot * Math.PI) / 180);
+          ctx2d.fillStyle = p.color;
+          ctx2d.fillRect(-p.size / 2, -p.size / 3, p.size, p.size * 0.65);
+          ctx2d.restore();
+        }
+        if (particles.length > 0) {
+          rafId = requestAnimationFrame(tickConfetti);
+        } else {
+          ctx2d.clearRect(0, 0, canvas.width, canvas.height);
+          rafId = null;
+        }
+      }
+
+      /* ========== MASCOT SVG HELPER ========== */
+      function bunnySvg(mood = "happy", celebrate = false) {
+        const mouth =
+          mood === "happy"
+            ? `<path d="M52 72 Q60 80 68 72" fill="none" stroke="#9a3412" stroke-width="3" stroke-linecap="round"/>`
+            : `<circle cx="60" cy="74" r="4" fill="#9a3412"/>`;
+        return `
+          <svg class="mascot-svg ${celebrate ? "celebrate" : ""}" viewBox="0 0 120 120" aria-hidden="true">
+            <ellipse cx="44" cy="28" rx="10" ry="24" transform="rotate(-10 44 28)" fill="#fde68a" stroke="#f59e0b" stroke-width="3"/>
+            <ellipse cx="44" cy="30" rx="5" ry="15" transform="rotate(-10 44 30)" fill="#fbcfe8"/>
+            <ellipse cx="76" cy="28" rx="10" ry="24" transform="rotate(10 76 28)" fill="#fde68a" stroke="#f59e0b" stroke-width="3"/>
+            <ellipse cx="76" cy="30" rx="5" ry="15" transform="rotate(10 76 30)" fill="#fbcfe8"/>
+            <circle cx="60" cy="64" r="30" fill="#fef3c7" stroke="#f59e0b" stroke-width="3.5"/>
+            <circle cx="49" cy="60" r="4" fill="#0f172a"/>
+            <circle cx="71" cy="60" r="4" fill="#0f172a"/>
+            <circle cx="42" cy="68" r="5" fill="#f9a8d4" opacity="0.7"/>
+            <circle cx="78" cy="68" r="5" fill="#f9a8d4" opacity="0.7"/>
+            <polygon points="56,65 64,65 60,70" fill="#ec4899"/>
+            ${mouth}
+            <text x="95" y="42" font-size="22">${mood === "happy" ? "🍎" : "💭"}</text>
+          </svg>
+        `;
+      }
+
+      /* ========== RENDERING ========== */
+      function updateHud() {
+        scorePill.textContent = `⭐ ${score} / ${questions.length}`;
+        if (step < 0) {
+          progressFill.style.width = "0%";
+          app.setAttribute("data-bg", "0");
+        } else if (step >= questions.length) {
+          progressFill.style.width = "100%";
+          app.setAttribute("data-bg", "10");
+        } else {
+          progressFill.style.width = `${((step + 1) / questions.length) * 100}%`;
+          app.setAttribute("data-bg", String(step + 1));
+        }
+      }
+
+      function renderIntro() {
+        updateHud();
+        shell.innerHTML = `
+          <div class="badge-pill">🎯 Animuota viktorina • 10 klausimų</div>
+          <h1 style="font-size:clamp(1.7rem, 3.4vw, 2.75rem);">Tolerancijos viktorina<br>7 metų vaikams (1–4 kl.)! 🌈✨</h1>
+          <div class="mascot-wrap">
+            ${bunnySvg("happy", false)}
+            <div class="mascot-bubble">
+              Labas! Aš esu Kiškis Drauguolis! 🐰🍎<br>
+              Padėk man atsakyti į 10 smagių klausimų apie draugystę, pagarbą ir toleranciją. Už kiekvieną teisingą atsakymą gausi po auksinę žvaigždutę! ⭐
+            </div>
+          </div>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
+            <span class="q-num-pill">⏱️ 10 klausimų</span>
+            <span class="q-num-pill">🎨 Spalvingos animacijos</span>
+            <span class="q-num-pill">🏆 Klasės diplomas finale</span>
+          </div>
+          <button class="cta-btn" id="start-quiz-btn">Pradėti viktoriną! 🚀</button>
+        `;
+        document.getElementById("start-quiz-btn").addEventListener("click", () => {
+          step = 0;
+          playSuccess();
+          launchConfetti(45, canvas.width / 2, canvas.height * 0.55);
+          renderQuestion();
+        });
+      }
+
+      function renderQuestion() {
+        updateHud();
+        answered = false;
+        const item = questions[step];
+        const starsHtml = questions
+          .map((_, idx) => `<span class="star-dot ${earnedList[idx] ? "earned" : ""}">⭐</span>`)
+          .join("");
+
+        shell.innerHTML = `
+          <div class="q-header">
+            <span class="q-num-pill">Klausimas ${step + 1} / ${questions.length}</span>
+            <div class="stars-row" aria-label="Žvaigždutės">${starsHtml}</div>
+          </div>
+
+          <div class="mascot-wrap">
+            <div id="mascot-slot">${bunnySvg("happy", false)}</div>
+            <div class="mascot-bubble" id="mascot-speech">
+              Išsirink teisingą atsakymą (A, B, C arba D)! 👇
+            </div>
+          </div>
+
+          <div class="question-box">${item.q}</div>
+
+          <div class="options-grid" id="options-grid">
+            ${item.options
+              .map(
+                (opt, i) => `
+              <button class="opt-btn" data-idx="${i}">
+                <span class="opt-letter">${letters[i]}</span>
+                <span>${opt}</span>
+              </button>
+            `
+              )
+              .join("")}
+          </div>
+
+          <div class="feedback-box" id="feedback-box">
+            <span id="feedback-text"></span>
+            <button class="cta-btn green" id="next-q-btn">
+              ${step === questions.length - 1 ? "Pamatyti rezultatą! 🏆" : "Kitas klausimas ➡"}
+            </button>
+          </div>
+        `;
+
+        document.querySelectorAll(".opt-btn").forEach(btn => {
+          btn.addEventListener("click", () => chooseOption(parseInt(btn.dataset.idx, 10)));
+        });
+        document.getElementById("next-q-btn").addEventListener("click", nextStep);
+      }
+
+      function chooseOption(idx) {
+        if (answered) return;
+        answered = true;
+        const item = questions[step];
+        const btns = Array.from(document.querySelectorAll(".opt-btn"));
+        const isCorrect = idx === item.correct;
+        const feedbackBox = document.getElementById("feedback-box");
+        const feedbackText = document.getElementById("feedback-text");
+        const mascotSlot = document.getElementById("mascot-slot");
+        const mascotSpeech = document.getElementById("mascot-speech");
+
+        btns.forEach((b, i) => {
+          b.disabled = true;
+          if (i === item.correct) {
+            b.classList.add("correct");
+          } else if (i === idx && !isCorrect) {
+            b.classList.add("wrong");
+          } else {
+            b.classList.add("dimmed");
+          }
+        });
+
+        if (isCorrect) {
+          score++;
+          earnedList[step] = true;
+          updateHud();
+          mascotSlot.innerHTML = bunnySvg("happy", true);
+          mascotSpeech.textContent = "VALIO! Puikiai padirbėta! ⭐🎉";
+          feedbackBox.className = "feedback-box ok";
+          feedbackText.textContent = `✅ Teisingai! ${item.explain}`;
+          playSuccess();
+          launchConfetti(55, canvas.width / 2, canvas.height * 0.45);
+        } else {
+          mascotSlot.innerHTML = bunnySvg("think", false);
+          mascotSpeech.textContent = "Nieko tokio! Pažiūrėkime, kuris atsakymas teisingas 💡";
+          feedbackBox.className = "feedback-box bad";
+          feedbackText.textContent = `💡 Teisingas atsakymas yra ${letters[item.correct]}. ${item.explain}`;
+          playGentleWrong();
+        }
+      }
+
+      function nextStep() {
+        if (step < questions.length - 1) {
+          step++;
+          renderQuestion();
+        } else {
+          step = questions.length;
+          renderFinal();
+        }
+      }
+
+      function renderFinal() {
+        updateHud();
+        playFanfare();
+        launchCelebration();
+
+        const titleMsg =
+          score === questions.length
+            ? "NEĮTIKĖTINA! Visi 10 iš 10! 🏆🌟"
+            : score >= 7
+            ? "ŠAUNUOLIAI! Puikus rezultatas! 🎉⭐"
+            : "GERA PRADŽIA! Pažaiskime dar kartą! 💪🌈";
+
+        shell.innerHTML = `
+          <div class="badge-pill">🏆 Viktorina baigta!</div>
+          <h1 style="font-size:clamp(1.7rem, 3.2vw, 2.55rem);">${titleMsg}</h1>
+
+          <div class="mascot-wrap">
+            ${bunnySvg("happy", true)}
+            <div class="mascot-bubble">
+              Surinkote <strong>${score} iš ${questions.length}</strong> auksinių žvaigždučių! ⭐<br>
+              Jūs puikiai žinote, kaip būti draugiškiems, paslaugiems ir tolerantiškiems!
+            </div>
+          </div>
+
+          <div class="diploma-banner">
+            <h2 style="font-size:clamp(1.2rem, 2vw, 1.65rem); color:#78350f; margin-bottom:4px;">
+              🎓 DIPLOMAS: Tikri Tolerancijos ir Draugystės žinovai!
+            </h2>
+            <p style="font-weight:800; font-size:1.05rem;">
+              Kiekvienas jūsų geras žodis ir šypsena daro klasę laimingesnę! 💛💚❤️
+            </p>
+          </div>
+
+          <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center;">
+            <button class="cta-btn" id="replay-btn">Žaisti dar kartą 🔄</button>
+            <a class="cta-btn blue" href="index.html">⬅ Atgal į prezentaciją</a>
+          </div>
+        `;
+
+        document.getElementById("replay-btn").addEventListener("click", () => {
+          step = 0;
+          score = 0;
+          earnedList = new Array(questions.length).fill(false);
+          playSuccess();
+          renderQuestion();
+        });
+      }
+
+      /* ========== CONTROLS ========== */
+      soundBtn.addEventListener("click", () => {
+        soundEnabled = !soundEnabled;
+        soundBtn.textContent = soundEnabled ? "🔊 Garsas" : "🔇 Be garso";
+        soundBtn.classList.toggle("muted", !soundEnabled);
+        if (soundEnabled) playSuccess();
+      });
+
+      fireworksBtn.addEventListener("click", () => {
+        playFanfare();
+        launchCelebration();
+      });
+
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen?.().catch(() => {});
+        } else {
+          document.exitFullscreen?.().catch(() => {});
+        }
+      }
+      fullscreenBtn.addEventListener("click", toggleFullscreen);
+
+      document.addEventListener("keydown", e => {
+        if (step >= 0 && step < questions.length) {
+          const map = { "1": 0, "2": 1, "3": 2, "4": 3, a: 0, b: 1, c: 2, d: 3 };
+          const key = e.key.toLowerCase();
+          if (!answered && key in map) {
+            chooseOption(map[key]);
+          } else if (answered && (e.key === "Enter" || e.key === "ArrowRight" || e.key === " ")) {
+            e.preventDefault();
+            nextStep();
+          }
+        } else if (e.key.toLowerCase() === "f") {
+          toggleFullscreen();
+        }
+      });
+
+      renderIntro();
+    })();
+  </script>
+</body>
+</html>
