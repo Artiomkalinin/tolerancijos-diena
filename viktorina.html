@@ -486,7 +486,7 @@
         <div class="progress-track">
           <div class="progress-fill" id="progress-fill"></div>
         </div>
-        <div class="score-pill" id="score-pill">⭐ 0 / 10</div>
+        <div class="score-pill" id="score-pill">⭐ 0 / 9</div>
       </div>
 
       <div class="top-actions">
@@ -539,17 +539,6 @@
           ],
           correct: 2,
           explain: "Kiekvienas esame unikalus – skiriamės išvaizda, pomėgiais, kalba ir charakteriu, ir tai daro pasaulį spalvingą!"
-        },
-        {
-          q: "Ką pasakoje ir filmuke „Kiškio obuoliai“ gerasis kiškis darė su obuoliais keliaudamas namo?",
-          options: [
-            "Visus obuolius suvalgė pats vienas",
-            "Draugiškai dalijosi obuoliais su sutiktais miško žvėreliais",
-            "Paslėpė po dideliu akmeniu",
-            "Išmėtė į upę"
-          ],
-          correct: 1,
-          explain: "Kiškis noriai dalijosi su visais sutiktais – gerumas ir dalinimasis visada sugrįžta su kaupu!"
         },
         {
           q: "Kaip pasielgia tolerantiškas vaikas, kai į klasę ateina naujokas, kuris nedrąsiai stovi vienas?",
@@ -790,17 +779,17 @@
       function renderIntro() {
         updateHud();
         shell.innerHTML = `
-          <div class="badge-pill">🎯 Animuota viktorina • 10 klausimų</div>
+          <div class="badge-pill">🎯 Animuota viktorina • 9 klausimai</div>
           <h1 style="font-size:clamp(1.7rem, 3.4vw, 2.75rem);">Tolerancijos viktorina<br>7 metų vaikams (1–4 kl.)! 🌈✨</h1>
           <div class="mascot-wrap">
             ${bunnySvg("happy", false)}
             <div class="mascot-bubble">
               Labas! Aš esu Kiškis Drauguolis! 🐰🍎<br>
-              Padėk man atsakyti į 10 smagių klausimų apie draugystę, pagarbą ir toleranciją. Už kiekvieną teisingą atsakymą gausi po auksinę žvaigždutę! ⭐
+              Padėk man atsakyti į 9 smagius klausimus apie draugystę, pagarbą ir toleranciją. Už kiekvieną teisingą atsakymą gausi po auksinę žvaigždutę! ⭐
             </div>
           </div>
           <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
-            <span class="q-num-pill">⏱️ 10 klausimų</span>
+            <span class="q-num-pill">⏱️ 9 klausimai</span>
             <span class="q-num-pill">🎨 Spalvingos animacijos</span>
             <span class="q-num-pill">🏆 Klasės diplomas finale</span>
           </div>
@@ -922,7 +911,7 @@
 
         const titleMsg =
           score === questions.length
-            ? "NEĮTIKĖTINA! Visi 10 iš 10! 🏆🌟"
+            ? "NEĮTIKĖTINA! Visi 9 iš 9! 🏆🌟"
             : score >= 7
             ? "ŠAUNUOLIAI! Puikus rezultatas! 🎉⭐"
             : "GERA PRADŽIA! Pažaiskime dar kartą! 💪🌈";
