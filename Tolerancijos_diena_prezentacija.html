@@ -1,0 +1,2719 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tolerancijos diena: Draugystės ir šypsenų pasaulis! (1–4 kl.)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-display: 'Fredoka', 'Baloo 2', 'Nunito', 'Arial Rounded MT Bold', system-ui, sans-serif;
+      --font-body: 'Nunito', 'Arial Rounded MT Bold', system-ui, -apple-system, sans-serif;
+      --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --smooth: cubic-bezier(0.22, 1, 0.36, 1);
+      --shadow-card: 0 12px 30px rgba(31, 41, 55, 0.14), 0 4px 10px rgba(31, 41, 55, 0.08);
+      --shadow-btn: 0 6px 0 rgba(0, 0, 0, 0.18), 0 10px 20px rgba(0, 0, 0, 0.14);
+      --text-dark: #1e293b;
+      --text-mid: #334155;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: var(--font-body);
+      color: var(--text-dark);
+      background: #fef08a;
+    }
+
+    /* Main Presentation Shell */
+    .deck {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: background 0.8s var(--smooth);
+    }
+
+    /* Per-slide colorful vibrant gradients */
+    .deck[data-theme="1"]  { background: linear-gradient(135deg, #bae6fd 0%, #fef08a 52%, #fbcfe8 100%); }
+    .deck[data-theme="2"]  { background: linear-gradient(135deg, #fde68a 0%, #fed7aa 50%, #fecdd3 100%); }
+    .deck[data-theme="3"]  { background: linear-gradient(135deg, #a7f3d0 0%, #bae6fd 50%, #ddd6fe 100%); }
+    .deck[data-theme="4"]  { background: linear-gradient(135deg, #fef08a 0%, #bbf7d0 55%, #fecaca 100%); }
+    .deck[data-theme="5"]  { background: linear-gradient(135deg, #93c5fd 0%, #c7d2fe 50%, #fde68a 100%); }
+    .deck[data-theme="6"]  { background: linear-gradient(135deg, #fbcfe8 0%, #fef9c3 55%, #bbf7d0 100%); }
+    .deck[data-theme="7"]  { background: linear-gradient(135deg, #c4b5fd 0%, #fbcfe8 55%, #fed7aa 100%); }
+    .deck[data-theme="8"]  { background: linear-gradient(135deg, #e0f2fe 0%, #fef9c3 50%, #dcfce7 100%); }
+    .deck[data-theme="9"]  { background: linear-gradient(135deg, #ddd6fe 0%, #bae6fd 50%, #fde68a 100%); }
+    .deck[data-theme="10"] { background: linear-gradient(135deg, #fed7aa 0%, #fef08a 50%, #a7f3d0 100%); }
+    .deck[data-theme="11"] { background: linear-gradient(135deg, #fef08a 0%, #bae6fd 50%, #bbf7d0 100%); }
+    .deck[data-theme="12"] { background: linear-gradient(135deg, #fbcfe8 0%, #fde68a 45%, #a7f3d0 100%); }
+
+    /* Animated Ambient Background Layer */
+    .bg-decor {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .cloud {
+      position: absolute;
+      opacity: 0.75;
+      filter: drop-shadow(0 8px 14px rgba(255, 255, 255, 0.5));
+      animation: driftCloud 28s linear infinite;
+    }
+    .cloud-1 { top: 6%; left: -12%; width: 160px; animation-duration: 36s; }
+    .cloud-2 { top: 14%; left: -18%; width: 120px; animation-duration: 46s; animation-delay: -18s; opacity: 0.6; }
+    .cloud-3 { bottom: 18%; left: -15%; width: 140px; animation-duration: 40s; animation-delay: -9s; opacity: 0.55; }
+
+    .bg-star {
+      position: absolute;
+      animation: twinkle 3.2s ease-in-out infinite;
+    }
+    .bg-bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.85), rgba(255,255,255,0.18));
+      border: 2px solid rgba(255,255,255,0.55);
+      animation: floatBubble 14s ease-in-out infinite;
+    }
+    .bg-sun-corner {
+      position: absolute;
+      top: -36px;
+      right: -36px;
+      width: 150px;
+      height: 150px;
+      opacity: 0.45;
+      animation: spinSlow 24s linear infinite;
+    }
+
+    /* Top Progress & Controls Bar */
+    .top-bar {
+      position: relative;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 22px 6px;
+      gap: 14px;
+      flex-shrink: 0;
+    }
+
+    .brand-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(8px);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(0.85rem, 1.2vw, 1rem);
+      color: #0f172a;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      white-space: nowrap;
+    }
+
+    .progress-wrap {
+      flex: 1;
+      max-width: 440px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(8px);
+      padding: 6px 14px;
+      border-radius: 999px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 12px;
+      background: rgba(148, 163, 184, 0.25);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 8.33%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #f43f5e, #f59e0b, #10b981, #3b82f6, #8b5cf6);
+      background-size: 200% 100%;
+      animation: rainbowShift 4s linear infinite;
+      transition: width 0.5s var(--spring);
+    }
+
+    .slide-counter {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #1e293b;
+      min-width: 48px;
+      text-align: right;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tool-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 13px;
+      border-radius: 999px;
+      border: 2px solid rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.9);
+      color: #0f172a;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.09);
+      transition: transform 0.2s var(--spring), background 0.2s, box-shadow 0.2s;
+    }
+    .tool-btn:hover {
+      transform: translateY(-2px) scale(1.04);
+      background: #ffffff;
+    }
+    .tool-btn:active {
+      transform: translateY(1px) scale(0.97);
+    }
+    .tool-btn.muted {
+      background: rgba(254, 226, 226, 0.92);
+      color: #991b1b;
+    }
+
+    /* Slides Viewport */
+    .slides-stage {
+      position: relative;
+      z-index: 10;
+      flex: 1;
+      width: 100%;
+      min-height: 0;
+      perspective: 1400px;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 28px 10px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(70px) scale(0.94) rotateY(-6deg);
+      transition: opacity 0.55s var(--smooth), transform 0.65s var(--spring);
+      visibility: hidden;
+    }
+
+    .slide.prev-slide {
+      transform: translateX(-70px) scale(0.94) rotateY(6deg);
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0) scale(1) rotateY(0deg);
+      visibility: visible;
+    }
+
+    .slide-inner {
+      width: 100%;
+      max-width: 1180px;
+      max-height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(8px, 1.4vh, 18px);
+    }
+
+    /* Staggered Entrance Animations when slide becomes active */
+    .slide .anim-item {
+      opacity: 0;
+      transform: translateY(24px) scale(0.92);
+      transition: opacity 0.5s var(--smooth), transform 0.6s var(--spring);
+    }
+    .slide.active .anim-item {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    .slide.active .d1 { transition-delay: 0.06s; }
+    .slide.active .d2 { transition-delay: 0.14s; }
+    .slide.active .d3 { transition-delay: 0.22s; }
+    .slide.active .d4 { transition-delay: 0.30s; }
+    .slide.active .d5 { transition-delay: 0.38s; }
+    .slide.active .d6 { transition-delay: 0.46s; }
+
+    /* Shared Typography & Cards */
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 18px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ff6b6b, #f59e0b);
+      color: #ffffff;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(0.85rem, 1.35vw, 1.08rem);
+      letter-spacing: 0.3px;
+      box-shadow: 0 6px 16px rgba(245, 158, 11, 0.35);
+      border: 2px solid rgba(255, 255, 255, 0.85);
+    }
+
+    .slide-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.55rem, 3.2vw, 2.75rem);
+      line-height: 1.12;
+      text-align: center;
+      color: #0f172a;
+      text-shadow: 0 3px 0 rgba(255, 255, 255, 0.75);
+    }
+
+    .slide-subtitle {
+      font-size: clamp(1rem, 1.65vw, 1.32rem);
+      font-weight: 700;
+      text-align: center;
+      color: #334155;
+      max-width: 860px;
+      line-height: 1.38;
+    }
+
+    .glass-box {
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(10px);
+      border: 3px solid rgba(255, 255, 255, 0.96);
+      border-radius: 28px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: clamp(10px, 1.5vh, 15px) clamp(22px, 2.6vw, 34px);
+      border-radius: 999px;
+      border: 3px solid #ffffff;
+      background: linear-gradient(135deg, #ff5e7e, #ff9642);
+      color: #ffffff;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.02rem, 1.7vw, 1.35rem);
+      cursor: pointer;
+      box-shadow: var(--shadow-btn);
+      transition: transform 0.22s var(--spring), filter 0.2s, box-shadow 0.2s;
+      animation: pulseSoft 2.4s ease-in-out infinite;
+    }
+    .cta-btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      filter: brightness(1.06);
+    }
+    .cta-btn:active {
+      transform: translateY(3px) scale(0.98);
+      box-shadow: 0 2px 0 rgba(0,0,0,0.2);
+    }
+
+    /* Bottom Navigation Bar */
+    .bottom-bar {
+      position: relative;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 24px 12px;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 20px;
+      border-radius: 999px;
+      border: 2.5px solid #ffffff;
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+      color: #ffffff;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(0.9rem, 1.3vw, 1.08rem);
+      cursor: pointer;
+      box-shadow: 0 5px 0 rgba(30, 58, 138, 0.28), 0 8px 16px rgba(59, 130, 246, 0.25);
+      transition: transform 0.2s var(--spring), opacity 0.2s;
+    }
+    .nav-btn:hover:not(:disabled) {
+      transform: translateY(-2px) scale(1.04);
+    }
+    .nav-btn:active:not(:disabled) {
+      transform: translateY(2px);
+    }
+    .nav-btn:disabled {
+      opacity: 0.42;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    .nav-btn.next-btn {
+      background: linear-gradient(135deg, #10b981, #059669);
+      box-shadow: 0 5px 0 rgba(6, 78, 59, 0.28), 0 8px 16px rgba(16, 185, 129, 0.28);
+    }
+
+    .dots-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(8px);
+      padding: 8px 14px;
+      border-radius: 999px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .dot-btn {
+      width: 13px;
+      height: 13px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(100, 116, 139, 0.35);
+      cursor: pointer;
+      transition: width 0.3s var(--spring), background 0.3s, transform 0.2s;
+      padding: 0;
+    }
+    .dot-btn:hover {
+      transform: scale(1.25);
+      background: #f59e0b;
+    }
+    .dot-btn.active {
+      width: 30px;
+      background: linear-gradient(90deg, #ec4899, #f59e0b);
+    }
+
+    /* ================= SLIDE-SPECIFIC STYLES ================= */
+
+    /* Slide 1: Cover */
+    .hero-card {
+      padding: clamp(16px, 2.5vh, 28px) clamp(20px, 3vw, 40px);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(8px, 1.4vh, 16px);
+      width: 100%;
+      max-width: 980px;
+    }
+    .hero-svg-wrap {
+      width: 100%;
+      max-width: 560px;
+      height: clamp(150px, 27vh, 240px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-svg-wrap svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+    .hero-kid {
+      animation: kidBounce 2.8s ease-in-out infinite;
+      transform-origin: bottom center;
+    }
+    .hero-kid.k2 { animation-delay: 0.35s; }
+    .hero-kid.k3 { animation-delay: 0.7s; }
+    .hero-kid.k4 { animation-delay: 1.05s; }
+    .hero-sun-rays {
+      transform-origin: 90px 58px;
+      animation: spinSlow 18s linear infinite;
+    }
+    .rainbow-draw {
+      stroke-dasharray: 650;
+      stroke-dashoffset: 650;
+    }
+    .slide.active .rainbow-draw {
+      animation: drawRainbow 1.8s var(--smooth) forwards;
+    }
+
+    /* Slide 2: What is Tolerance */
+    .def-banner {
+      padding: clamp(14px, 2vh, 22px) clamp(20px, 3vw, 34px);
+      max-width: 940px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.92);
+    }
+    .def-text {
+      font-size: clamp(1.05rem, 1.75vw, 1.38rem);
+      font-weight: 800;
+      line-height: 1.42;
+      color: #1e293b;
+    }
+    .highlight-word {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 12px;
+      background: linear-gradient(120deg, #fef08a, #fde047);
+      color: #b45309;
+      box-shadow: 0 3px 0 #f59e0b;
+    }
+    .cards-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(12px, 1.8vw, 22px);
+      width: 100%;
+    }
+    .tol-card {
+      padding: clamp(14px, 2vh, 24px) 18px;
+      border-radius: 26px;
+      border: 3px solid #ffffff;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: var(--shadow-card);
+      text-align: center;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.3s var(--spring), box-shadow 0.3s, background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .tol-card:hover {
+      transform: translateY(-8px) scale(1.03);
+    }
+    .tol-card.lit {
+      transform: translateY(-6px) scale(1.04);
+      background: linear-gradient(160deg, #ffffff, #fef9c3);
+      box-shadow: 0 0 0 4px #f59e0b, 0 18px 34px rgba(245, 158, 11, 0.32);
+    }
+    .tol-card .big-emoji {
+      font-size: clamp(2.4rem, 4vw, 3.4rem);
+      display: inline-block;
+      transition: transform 0.4s var(--spring);
+    }
+    .tol-card:hover .big-emoji, .tol-card.lit .big-emoji {
+      transform: scale(1.2) rotate(-6deg);
+    }
+    .tol-card h3 {
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 1.7vw, 1.4rem);
+      color: #0f172a;
+    }
+    .tol-card p {
+      font-size: clamp(0.88rem, 1.25vw, 1.05rem);
+      font-weight: 700;
+      color: #475569;
+      line-height: 1.35;
+    }
+    .tap-hint {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #be123c;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 4px 14px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Slide 3: Colored Pencils */
+    .pencils-stage {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: clamp(14px, 2vw, 24px);
+      width: 100%;
+      align-items: stretch;
+    }
+    .pencil-box-card {
+      padding: clamp(14px, 2vh, 22px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .pencil-svg-box {
+      width: 100%;
+      height: clamp(145px, 25vh, 210px);
+    }
+    .pencil-item {
+      transition: transform 0.35s var(--spring), filter 0.4s;
+      cursor: pointer;
+    }
+    .pencil-item:hover {
+      transform: translateY(-12px);
+    }
+    .grey-mode .pencil-item {
+      filter: grayscale(100%) brightness(0.95);
+    }
+    .grey-mode .rainbow-arc-p {
+      filter: grayscale(100%) opacity(0.5);
+    }
+    .diff-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      justify-content: center;
+    }
+    .diff-item {
+      padding: clamp(10px, 1.5vh, 14px) 16px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 2.5px solid #fff;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: transform 0.25s var(--spring);
+    }
+    .diff-item:hover {
+      transform: translateX(6px) scale(1.02);
+    }
+    .diff-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.65rem;
+      flex-shrink: 0;
+      color: #fff;
+    }
+    .diff-item h4 {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 1.45vw, 1.2rem);
+      color: #0f172a;
+      margin-bottom: 2px;
+    }
+    .diff-item p {
+      font-size: clamp(0.86rem, 1.15vw, 0.98rem);
+      font-weight: 700;
+      color: #475569;
+    }
+
+    /* Slide 4: Lithuania */
+    .lt-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: clamp(14px, 2.2vw, 26px);
+      width: 100%;
+      align-items: center;
+    }
+    .lt-map-card {
+      padding: clamp(14px, 2vh, 22px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+    }
+    .lt-regions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      width: 100%;
+    }
+    .dialect-btn {
+      padding: 10px 12px;
+      border-radius: 18px;
+      border: 2.5px solid #fff;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+      cursor: pointer;
+      text-align: left;
+      transition: transform 0.25s var(--spring), background 0.25s;
+    }
+    .dialect-btn:hover {
+      transform: translateY(-4px) scale(1.03);
+      background: #fef9c3;
+    }
+    .dialect-btn.active-dialect {
+      background: linear-gradient(135deg, #fef08a, #fde047);
+      border-color: #f59e0b;
+    }
+    .dialect-btn strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+      color: #0f172a;
+    }
+    .dialect-btn span {
+      font-size: clamp(0.82rem, 1.1vw, 0.95rem);
+      font-weight: 800;
+      color: #0369a1;
+    }
+    .lt-quote-banner {
+      padding: 12px 24px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #facc15, #22c55e, #ef4444);
+      color: #ffffff;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1rem, 1.6vw, 1.35rem);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.28);
+      box-shadow: var(--shadow-card);
+      text-align: center;
+      border: 3px solid #ffffff;
+    }
+
+    /* Slide 5: Tolerance Symbols & Interactive Lighthouse */
+    .symbols-layout {
+      display: grid;
+      grid-template-columns: 1.25fr 0.9fr;
+      gap: clamp(14px, 2vw, 24px);
+      width: 100%;
+      align-items: stretch;
+    }
+    .symbols-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .sym-card {
+      padding: clamp(12px, 1.7vh, 18px);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 2.5px solid #fff;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 6px;
+      transition: transform 0.28s var(--spring);
+    }
+    .sym-card:hover {
+      transform: translateY(-5px) rotate(1deg);
+    }
+    .sym-emoji {
+      font-size: clamp(2rem, 3.4vw, 2.8rem);
+      animation: floatGentle 3.5s ease-in-out infinite;
+    }
+    .sym-card h4 {
+      font-family: var(--font-display);
+      font-size: clamp(0.98rem, 1.4vw, 1.18rem);
+      color: #0f172a;
+    }
+    .sym-card p {
+      font-size: clamp(0.8rem, 1.1vw, 0.94rem);
+      font-weight: 700;
+      color: #475569;
+      line-height: 1.3;
+    }
+    .lighthouse-card {
+      padding: clamp(14px, 2vh, 20px);
+      border-radius: 28px;
+      background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+      border: 3px solid rgba(255, 255, 255, 0.9);
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      color: #ffffff;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.6s ease;
+    }
+    .lighthouse-card.beam-on {
+      background: linear-gradient(180deg, #1d4ed8 0%, #0f172a 85%);
+      box-shadow: 0 0 35px rgba(250, 204, 21, 0.45), var(--shadow-card);
+    }
+    .lighthouse-svg {
+      width: 100%;
+      height: clamp(150px, 26vh, 220px);
+      overflow: visible;
+    }
+    .lh-beam-group {
+      opacity: 0;
+      transform-origin: 140px 58px;
+      transition: opacity 0.4s ease;
+    }
+    .lighthouse-card.beam-on .lh-beam-group {
+      opacity: 1;
+      animation: beamSweep 3.8s ease-in-out infinite;
+    }
+    .lighthouse-card.beam-on .lh-lantern-glow {
+      fill: #fde047;
+      filter: drop-shadow(0 0 12px #fde047);
+    }
+    .lh-btn {
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: 2px solid #fff;
+      background: linear-gradient(135deg, #f59e0b, #eab308);
+      color: #0f172a;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(0.9rem, 1.3vw, 1.08rem);
+      cursor: pointer;
+      box-shadow: 0 5px 0 #b45309;
+      transition: transform 0.2s var(--spring);
+      z-index: 2;
+    }
+    .lh-btn:hover { transform: scale(1.06); }
+    .lh-btn:active { transform: translateY(3px); }
+
+    /* Slide 6: Magic Words Garden */
+    .garden-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(10px, 1.6vw, 18px);
+      width: 100%;
+    }
+    .flower-pot {
+      padding: clamp(12px, 1.8vh, 18px) 14px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 3px solid #ffffff;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: transform 0.3s var(--spring), background 0.4s;
+      position: relative;
+    }
+    .flower-pot:hover {
+      transform: translateY(-6px);
+    }
+    .flower-pot.bloomed {
+      background: linear-gradient(160deg, #ffffff 0%, #fef9c3 100%);
+      border-color: #f472b6;
+    }
+    .flower-svg {
+      width: clamp(68px, 9vh, 88px);
+      height: clamp(68px, 9vh, 88px);
+      overflow: visible;
+    }
+    .flower-head {
+      transform-origin: 50px 44px;
+      transform: scale(0.32);
+      opacity: 0.55;
+      transition: transform 0.65s var(--spring), opacity 0.4s;
+    }
+    .flower-pot.bloomed .flower-head {
+      transform: scale(1.08) rotate(12deg);
+      opacity: 1;
+    }
+    .flower-word {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(0.95rem, 1.38vw, 1.16rem);
+      color: #0f172a;
+      text-align: center;
+      min-height: 2.4em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.45;
+      transition: opacity 0.4s, transform 0.4s var(--spring);
+    }
+    .flower-pot.bloomed .flower-word {
+      opacity: 1;
+      color: #be185d;
+      transform: scale(1.05);
+    }
+    .flower-badge {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: #047857;
+      background: #d1fae5;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+    .flower-pot.bloomed .flower-badge {
+      background: #fce7f3;
+      color: #be185d;
+    }
+
+    /* Slide 7: Empathy Glasses */
+    .empathy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(12px, 1.8vw, 20px);
+      width: 100%;
+    }
+    .emp-card {
+      padding: clamp(14px, 2vh, 22px) 16px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 3px solid #fff;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+      gap: 10px;
+      transition: transform 0.35s var(--spring), background 0.4s, box-shadow 0.4s;
+    }
+    .emp-card.helped {
+      background: linear-gradient(160deg, #ffffff 0%, #dcfce7 100%);
+      box-shadow: 0 0 0 4px #22c55e, var(--shadow-card);
+      transform: translateY(-4px);
+    }
+    .emp-face {
+      font-size: clamp(2.8rem, 4.5vw, 3.8rem);
+      transition: transform 0.45s var(--spring);
+      display: inline-block;
+    }
+    .emp-card.helped .emp-face {
+      transform: scale(1.2) rotate(8deg);
+    }
+    .emp-sit {
+      font-size: clamp(0.95rem, 1.35vw, 1.12rem);
+      font-weight: 800;
+      color: #1e293b;
+      line-height: 1.35;
+    }
+    .emp-tip {
+      padding: 8px 12px;
+      border-radius: 16px;
+      background: #dcfce7;
+      color: #166534;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(0.92rem, 1.3vw, 1.1rem);
+      display: none;
+      animation: popIn 0.45s var(--spring);
+      width: 100%;
+    }
+    .emp-card.helped .emp-tip {
+      display: block;
+    }
+    .emp-btn {
+      padding: 9px 18px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      color: #fff;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.96rem;
+      cursor: pointer;
+      box-shadow: 0 4px 0 rgba(109, 40, 217, 0.35);
+      transition: transform 0.2s var(--spring);
+    }
+    .emp-btn:hover { transform: scale(1.06); }
+    .emp-card.helped .emp-btn {
+      background: #22c55e;
+      box-shadow: 0 4px 0 #15803d;
+    }
+
+    /* Slide 8: Traffic Light */
+    .traffic-layout {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: clamp(12px, 1.8vw, 22px);
+      width: 100%;
+      align-items: center;
+    }
+    .tl-column {
+      padding: clamp(14px, 2vh, 22px);
+      border-radius: 26px;
+      border: 3px solid #fff;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      height: 100%;
+    }
+    .tl-green {
+      background: linear-gradient(160deg, rgba(240, 253, 244, 0.95), rgba(187, 247, 208, 0.92));
+      border-color: #22c55e;
+    }
+    .tl-red {
+      background: linear-gradient(160deg, rgba(254, 242, 242, 0.95), rgba(254, 202, 202, 0.92));
+      border-color: #ef4444;
+    }
+    .tl-column h3 {
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 1.6vw, 1.38rem);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tl-green h3 { color: #15803d; }
+    .tl-red h3 { color: #b91c1c; }
+    .tl-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .tl-list li {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 8px 12px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: clamp(0.88rem, 1.2vw, 1.04rem);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+    }
+    .traffic-post {
+      background: #1e293b;
+      padding: 14px 12px;
+      border-radius: 28px;
+      border: 4px solid #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: var(--shadow-card);
+    }
+    .tl-lamp {
+      width: clamp(46px, 6vw, 62px);
+      height: clamp(46px, 6vw, 62px);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.25s var(--spring), box-shadow 0.3s;
+      border: 3px solid rgba(255, 255, 255, 0.25);
+    }
+    .tl-lamp:hover { transform: scale(1.1); }
+    .lamp-r { background: #ef4444; box-shadow: 0 0 22px #ef4444; animation: lampPulse 2s infinite; }
+    .lamp-y { background: #facc15; opacity: 0.45; }
+    .lamp-g { background: #22c55e; box-shadow: 0 0 22px #22c55e; animation: lampPulse 2s 1s infinite; }
+
+    /* Slide 9: Quiz */
+    .quiz-card {
+      width: 100%;
+      max-width: 880px;
+      padding: clamp(16px, 2.3vh, 28px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(10px, 1.6vh, 16px);
+      text-align: center;
+    }
+    .quiz-hud {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .stars-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #fef9c3;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 2px solid #facc15;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #a16207;
+    }
+    .star-slot {
+      font-size: 1.3rem;
+      filter: grayscale(100%) opacity(0.35);
+      transition: transform 0.4s var(--spring), filter 0.3s;
+    }
+    .star-slot.earned {
+      filter: none;
+      transform: scale(1.22);
+    }
+    .quiz-question-box {
+      background: linear-gradient(135deg, #eff6ff, #f5f3ff);
+      border: 2.5px solid #c7d2fe;
+      border-radius: 22px;
+      padding: clamp(14px, 2vh, 22px);
+      width: 100%;
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 1.85vw, 1.48rem);
+      font-weight: 600;
+      color: #1e293b;
+      line-height: 1.38;
+    }
+    .quiz-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+    }
+    .q-btn {
+      flex: 1;
+      min-width: 210px;
+      max-width: 300px;
+      padding: clamp(12px, 1.8vh, 16px) 22px;
+      border-radius: 20px;
+      border: 3px solid #fff;
+      color: #fff;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.05rem, 1.55vw, 1.3rem);
+      cursor: pointer;
+      transition: transform 0.22s var(--spring), opacity 0.2s;
+    }
+    .q-btn:hover:not(:disabled) { transform: translateY(-4px) scale(1.03); }
+    .q-btn:disabled { opacity: 0.6; cursor: default; }
+    .q-btn-yes {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      box-shadow: 0 6px 0 #15803d;
+    }
+    .q-btn-no {
+      background: linear-gradient(135deg, #f43f5e, #dc2626);
+      box-shadow: 0 6px 0 #991b1b;
+    }
+    .quiz-feedback {
+      width: 100%;
+      padding: 12px 18px;
+      border-radius: 18px;
+      font-weight: 800;
+      font-size: clamp(0.95rem, 1.3vw, 1.12rem);
+      display: none;
+      animation: popIn 0.4s var(--spring);
+    }
+    .quiz-feedback.ok { display: block; background: #dcfce7; color: #166534; border: 2px solid #22c55e; }
+    .quiz-feedback.bad { display: block; background: #fee2e2; color: #991b1b; border: 2px solid #ef4444; }
+
+    /* Slide 10: 5 Finger Rule */
+    .fingers-layout {
+      display: grid;
+      grid-template-columns: 0.85fr 1.35fr;
+      gap: clamp(14px, 2vw, 24px);
+      width: 100%;
+      align-items: center;
+    }
+    .hand-showcase {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      text-align: center;
+    }
+    .hand-svg {
+      width: 100%;
+      max-width: 260px;
+      height: clamp(180px, 32vh, 260px);
+      overflow: visible;
+    }
+    .superpowers-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .power-row {
+      padding: clamp(9px, 1.3vh, 13px) 16px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 2.5px solid #fff;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: transform 0.25s var(--spring), background 0.25s;
+    }
+    .power-row:hover, .power-row.active-power {
+      transform: translateX(8px) scale(1.02);
+      background: #fef9c3;
+      border-color: #f59e0b;
+    }
+    .power-num {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      color: #fff;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .power-row h4 {
+      font-family: var(--font-display);
+      font-size: clamp(0.98rem, 1.4vw, 1.16rem);
+      color: #0f172a;
+    }
+    .power-row p {
+      font-size: clamp(0.82rem, 1.1vw, 0.96rem);
+      font-weight: 700;
+      color: #475569;
+    }
+
+    /* Slide 11: Class Tolerance Sun */
+    .sun-activity-layout {
+      display: grid;
+      grid-template-columns: 0.95fr 1.15fr;
+      gap: clamp(14px, 2vw, 24px);
+      width: 100%;
+      align-items: center;
+    }
+    .sun-instructions {
+      padding: clamp(16px, 2.2vh, 24px);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .sun-instructions h3 {
+      font-family: var(--font-display);
+      font-size: clamp(1.15rem, 1.7vw, 1.42rem);
+      color: #b45309;
+    }
+    .step-chip {
+      background: #fef9c3;
+      border-left: 5px solid #f59e0b;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: clamp(0.88rem, 1.2vw, 1.04rem);
+      color: #1e293b;
+    }
+    .sun-circle-stage {
+      position: relative;
+      width: clamp(270px, 38vh, 360px);
+      height: clamp(270px, 38vh, 360px);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .center-sun {
+      width: 126px;
+      height: 126px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fef08a, #facc15, #f59e0b);
+      border: 4px solid #ffffff;
+      box-shadow: 0 0 25px rgba(250, 204, 21, 0.55);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: #78350f;
+      z-index: 3;
+      transition: transform 0.5s var(--spring), box-shadow 0.5s;
+    }
+    .center-sun.all-lit {
+      transform: scale(1.14);
+      box-shadow: 0 0 55px #facc15, 0 0 90px #fb923c;
+    }
+    .hand-ray {
+      position: absolute;
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      border: 3px solid #ffffff;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.35s var(--spring), background 0.3s, box-shadow 0.3s;
+      z-index: 4;
+      font-size: 1.55rem;
+    }
+    .hand-ray span {
+      font-family: var(--font-display);
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: #0f172a;
+      display: none;
+    }
+    .hand-ray:hover {
+      transform: scale(1.15);
+    }
+    .hand-ray.lit {
+      transform: scale(1.16);
+      box-shadow: 0 0 20px rgba(250, 204, 21, 0.8);
+    }
+    .hand-ray.lit span {
+      display: block;
+      color: #ffffff;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    }
+
+    /* Slide 12: Finale Pledge */
+    .pledge-card {
+      padding: clamp(16px, 2.4vh, 28px) clamp(20px, 3vw, 38px);
+      max-width: 880px;
+      width: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(10px, 1.5vh, 16px);
+    }
+    .pledge-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+    .pledge-line {
+      background: linear-gradient(90deg, rgba(254, 240, 138, 0.55), rgba(251, 207, 232, 0.55));
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      padding: 10px 18px;
+      border-radius: 18px;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(1rem, 1.55vw, 1.28rem);
+      color: #1e293b;
+    }
+    .diploma-box {
+      display: none;
+      padding: 14px 26px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #fef08a, #fde047, #f59e0b);
+      border: 4px solid #ffffff;
+      box-shadow: 0 12px 30px rgba(245, 158, 11, 0.45);
+      color: #78350f;
+      animation: popIn 0.6s var(--spring);
+    }
+    .diploma-box.show {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .diploma-box h3 {
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 1.7vw, 1.45rem);
+    }
+
+    /* Confetti Canvas */
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 99;
+    }
+
+    /* Keyframes */
+    @keyframes driftCloud {
+      from { transform: translateX(0); }
+      to   { transform: translateX(130vw); }
+    }
+    @keyframes twinkle {
+      0%, 100% { transform: scale(0.85) rotate(0deg); opacity: 0.45; }
+      50%      { transform: scale(1.22) rotate(18deg); opacity: 1; }
+    }
+    @keyframes floatBubble {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      50%      { transform: translateY(-28px) translateX(12px); }
+    }
+    @keyframes spinSlow {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    @keyframes rainbowShift {
+      0%   { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+    @keyframes pulseSoft {
+      0%, 100% { transform: scale(1); }
+      50%      { transform: scale(1.035); }
+    }
+    @keyframes kidBounce {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+    @keyframes drawRainbow {
+      to { stroke-dashoffset: 0; }
+    }
+    @keyframes floatGentle {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-6px); }
+    }
+    @keyframes beamSweep {
+      0%, 100% { transform: rotate(-16deg); }
+      50%      { transform: rotate(16deg); }
+    }
+    @keyframes popIn {
+      0%   { opacity: 0; transform: scale(0.75); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    @keyframes lampPulse {
+      0%, 100% { filter: brightness(1); }
+      50%      { filter: brightness(1.3); }
+    }
+
+    /* Responsive adjustments for smaller screens */
+    @media (max-width: 860px) {
+      .cards-3, .empathy-grid, .traffic-layout,
+      .pencils-stage, .lt-grid, .symbols-layout, .fingers-layout, .sun-activity-layout {
+        grid-template-columns: 1fr;
+      }
+      .garden-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .slide {
+        overflow-y: auto;
+        align-items: flex-start;
+        padding: 10px 14px 16px;
+      }
+      .slide-inner {
+        max-height: none;
+        justify-content: flex-start;
+        margin: auto 0;
+        padding-bottom: 10px;
+      }
+      .brand-pill span.hide-sm { display: none; }
+      .traffic-post { flex-direction: row; justify-content: center; }
+    }
+    @media (max-width: 520px) {
+      .garden-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="confetti-canvas"></canvas>
+
+  <div class="deck" id="deck" data-theme="1">
+    <!-- Ambient Animated Background -->
+    <div class="bg-decor" aria-hidden="true">
+      <svg class="bg-sun-corner" viewBox="0 0 120 120">
+        <circle cx="60" cy="60" r="28" fill="#fde047"/>
+        <g stroke="#facc15" stroke-width="6" stroke-linecap="round">
+          <line x1="60" y1="8" x2="60" y2="22"/>
+          <line x1="60" y1="98" x2="60" y2="112"/>
+          <line x1="8" y1="60" x2="22" y2="60"/>
+          <line x1="98" y1="60" x2="112" y2="60"/>
+          <line x1="23" y1="23" x2="33" y2="33"/>
+          <line x1="87" y1="87" x2="97" y2="97"/>
+          <line x1="97" y1="23" x2="87" y2="33"/>
+          <line x1="33" y1="87" x2="23" y2="97"/>
+        </g>
+      </svg>
+
+      <!-- Clouds -->
+      <svg class="cloud cloud-1" viewBox="0 0 180 90">
+        <path d="M35 72 H145 A22 22 0 0 0 148 29 A32 32 0 0 0 88 18 A26 26 0 0 0 40 34 A20 20 0 0 0 35 72 Z" fill="#ffffff"/>
+      </svg>
+      <svg class="cloud cloud-2" viewBox="0 0 180 90">
+        <path d="M35 72 H145 A22 22 0 0 0 148 29 A32 32 0 0 0 88 18 A26 26 0 0 0 40 34 A20 20 0 0 0 35 72 Z" fill="#ffffff"/>
+      </svg>
+      <svg class="cloud cloud-3" viewBox="0 0 180 90">
+        <path d="M35 72 H145 A22 22 0 0 0 148 29 A32 32 0 0 0 88 18 A26 26 0 0 0 40 34 A20 20 0 0 0 35 72 Z" fill="#ffffff"/>
+      </svg>
+
+      <!-- Twinkling Stars & Floating Bubbles -->
+      <svg class="bg-star" style="top:16%; left:7%; width:26px;" viewBox="0 0 40 40">
+        <polygon points="20,2 25,14 38,15 28,24 31,37 20,30 9,37 12,24 2,15 15,14" fill="#fde047"/>
+      </svg>
+      <svg class="bg-star" style="top:24%; right:8%; width:22px; animation-delay:1.1s;" viewBox="0 0 40 40">
+        <polygon points="20,2 25,14 38,15 28,24 31,37 20,30 9,37 12,24 2,15 15,14" fill="#f472b6"/>
+      </svg>
+      <svg class="bg-star" style="bottom:20%; left:10%; width:24px; animation-delay:2s;" viewBox="0 0 40 40">
+        <polygon points="20,2 25,14 38,15 28,24 31,37 20,30 9,37 12,24 2,15 15,14" fill="#38bdf8"/>
+      </svg>
+
+      <div class="bg-bubble" style="width:44px; height:44px; left:4%; bottom:26%;"></div>
+      <div class="bg-bubble" style="width:28px; height:28px; right:6%; bottom:22%; animation-delay:3s;"></div>
+      <div class="bg-bubble" style="width:52px; height:52px; right:14%; top:12%; animation-delay:5s;"></div>
+    </div>
+
+    <!-- Top HUD -->
+    <header class="top-bar">
+      <div class="brand-pill">
+        <span>🌈</span>
+        <span>Tolerancijos diena <span class="hide-sm">• 1–4 kl.</span></span>
+      </div>
+
+      <div class="progress-wrap" aria-label="Prezentacijos eiga">
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="slide-counter" id="slide-counter">1 / 12</div>
+      </div>
+
+      <div class="top-actions">
+        <button class="tool-btn" id="sound-btn" title="Įjungti arba išjungti garsą">🔊 Garsas</button>
+        <button class="tool-btn" id="fireworks-btn" title="Paleisti šventinius fejerverkus">🎉 Fejerverkai</button>
+        <button class="tool-btn" id="fullscreen-btn" title="Visas ekranas (F)">⛶ Visas ekranas</button>
+      </div>
+    </header>
+
+    <!-- Slides Stage -->
+    <main class="slides-stage" id="slides-stage">
+
+      <!-- SLIDE 1: TITULINĖ -->
+      <section class="slide active" data-slide="1">
+        <div class="slide-inner">
+          <div class="glass-box hero-card anim-item d1">
+            <div class="badge-pill anim-item d1">📅 Lapkričio 16-oji – Tarptautinė tolerancijos diena</div>
+            <h1 class="slide-title anim-item d2">Tolerancijos diena:<br>Draugystės ir šypsenų pasaulis! 🌍✨</h1>
+            <p class="slide-subtitle anim-item d3">Smagi kelionė Lietuvos 1–4 klasių moksleiviams apie pagarbą, gerumą ir draugystę!</p>
+
+            <div class="hero-svg-wrap anim-item d4">
+              <svg viewBox="0 0 600 230" aria-label="Besišypsanti saulė, vaivorykštė ir susikibę vaikai">
+                <!-- Rainbow -->
+                <path class="rainbow-draw" d="M 85 190 A 215 165 0 0 1 515 190" fill="none" stroke="#ef4444" stroke-width="14" stroke-linecap="round"/>
+                <path class="rainbow-draw" d="M 100 190 A 200 150 0 0 1 500 190" fill="none" stroke="#f97316" stroke-width="14" stroke-linecap="round"/>
+                <path class="rainbow-draw" d="M 115 190 A 185 135 0 0 1 485 190" fill="none" stroke="#facc15" stroke-width="14" stroke-linecap="round"/>
+                <path class="rainbow-draw" d="M 130 190 A 170 120 0 0 1 470 190" fill="none" stroke="#22c55e" stroke-width="14" stroke-linecap="round"/>
+                <path class="rainbow-draw" d="M 145 190 A 155 105 0 0 1 455 190" fill="none" stroke="#3b82f6" stroke-width="14" stroke-linecap="round"/>
+                <path class="rainbow-draw" d="M 160 190 A 140 90 0 0 1 440 190" fill="none" stroke="#a855f7" stroke-width="14" stroke-linecap="round"/>
+
+                <!-- Smiling Sun -->
+                <g class="hero-sun-rays" stroke="#f59e0b" stroke-width="5" stroke-linecap="round">
+                  <line x1="90" y1="16" x2="90" y2="28"/>
+                  <line x1="90" y1="88" x2="90" y2="100"/>
+                  <line x1="48" y1="58" x2="60" y2="58"/>
+                  <line x1="120" y1="58" x2="132" y2="58"/>
+                  <line x1="60" y1="28" x2="69" y2="37"/>
+                  <line x1="111" y1="79" x2="120" y2="88"/>
+                  <line x1="120" y1="28" x2="111" y2="37"/>
+                  <line x1="69" y1="79" x2="60" y2="88"/>
+                </g>
+                <circle cx="90" cy="58" r="26" fill="#fde047" stroke="#f59e0b" stroke-width="3"/>
+                <circle cx="82" cy="54" r="3" fill="#78350f"/>
+                <circle cx="98" cy="54" r="3" fill="#78350f"/>
+                <path d="M81 64 Q90 73 99 64" fill="none" stroke="#78350f" stroke-width="3" stroke-linecap="round"/>
+
+                <!-- Green Hill -->
+                <path d="M 40 212 Q 300 165 560 212 L 560 230 L 40 230 Z" fill="#86efac"/>
+
+                <!-- Kid 1 (Red hair, blue shirt) -->
+                <g class="hero-kid k1">
+                  <line x1="175" y1="158" x2="215" y2="146" stroke="#fde68a" stroke-width="10" stroke-linecap="round"/>
+                  <rect x="150" y="132" width="34" height="46" rx="14" fill="#3b82f6"/>
+                  <rect x="155" y="175" width="10" height="24" rx="5" fill="#1e3a8a"/>
+                  <rect x="170" y="175" width="10" height="24" rx="5" fill="#1e3a8a"/>
+                  <circle cx="167" cy="108" r="22" fill="#fed7aa"/>
+                  <path d="M145 104 Q167 74 189 104 Q175 94 167 98 Q158 93 145 104 Z" fill="#ea580c"/>
+                  <circle cx="160" cy="108" r="2.8" fill="#1e293b"/>
+                  <circle cx="174" cy="108" r="2.8" fill="#1e293b"/>
+                  <path d="M160 116 Q167 122 174 116" fill="none" stroke="#9a3412" stroke-width="2.5" stroke-linecap="round"/>
+                </g>
+
+                <!-- Kid 2 (Curly dark hair, glasses, pink dress/shirt) -->
+                <g class="hero-kid k2">
+                  <line x1="215" y1="146" x2="295" y2="148" stroke="#d97706" stroke-width="10" stroke-linecap="round"/>
+                  <path d="M233 132 L269 132 L276 180 L226 180 Z" fill="#ec4899"/>
+                  <rect x="238" y="178" width="9" height="22" rx="4" fill="#b45309"/>
+                  <rect x="255" y="178" width="9" height="22" rx="4" fill="#b45309"/>
+                  <circle cx="234" cy="96" r="11" fill="#1e293b"/>
+                  <circle cx="268" cy="96" r="11" fill="#1e293b"/>
+                  <circle cx="251" cy="106" r="22" fill="#d97706"/>
+                  <path d="M231 98 Q251 78 271 98" fill="#1e293b"/>
+                  <!-- Glasses -->
+                  <circle cx="243" cy="106" r="6" fill="none" stroke="#ffffff" stroke-width="2.2"/>
+                  <circle cx="259" cy="106" r="6" fill="none" stroke="#ffffff" stroke-width="2.2"/>
+                  <line x1="249" y1="106" x2="253" y2="106" stroke="#ffffff" stroke-width="2.2"/>
+                  <circle cx="243" cy="106" r="2.2" fill="#0f172a"/>
+                  <circle cx="259" cy="106" r="2.2" fill="#0f172a"/>
+                  <path d="M244 116 Q251 122 258 116" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+                </g>
+
+                <!-- Kid 3 (Blonde hair, green hoodie) -->
+                <g class="hero-kid k3">
+                  <line x1="295" y1="148" x2="385" y2="146" stroke="#fed7aa" stroke-width="10" stroke-linecap="round"/>
+                  <rect x="322" y="130" width="36" height="48" rx="14" fill="#10b981"/>
+                  <rect x="328" y="176" width="10" height="24" rx="5" fill="#334155"/>
+                  <rect x="344" y="176" width="10" height="24" rx="5" fill="#334155"/>
+                  <circle cx="340" cy="106" r="22" fill="#ffedd5"/>
+                  <path d="M318 102 Q340 72 362 102 Q350 92 340 94 Q329 92 318 102 Z" fill="#facc15"/>
+                  <circle cx="333" cy="106" r="2.8" fill="#1e293b"/>
+                  <circle cx="347" cy="106" r="2.8" fill="#1e293b"/>
+                  <path d="M333 115 Q340 122 347 115" fill="none" stroke="#b45309" stroke-width="2.5" stroke-linecap="round"/>
+                </g>
+
+                <!-- Kid 4 (Purple shirt, brown hair) -->
+                <g class="hero-kid k4">
+                  <line x1="385" y1="146" x2="425" y2="154" stroke="#fde68a" stroke-width="10" stroke-linecap="round"/>
+                  <rect x="415" y="132" width="34" height="46" rx="14" fill="#8b5cf6"/>
+                  <rect x="420" y="175" width="10" height="24" rx="5" fill="#4c1d95"/>
+                  <rect x="435" y="175" width="10" height="24" rx="5" fill="#4c1d95"/>
+                  <circle cx="432" cy="108" r="22" fill="#fde68a"/>
+                  <path d="M410 105 Q432 76 454 105 L452 115 Q445 100 432 98 Q419 100 412 115 Z" fill="#78350f"/>
+                  <circle cx="425" cy="108" r="2.8" fill="#1e293b"/>
+                  <circle cx="439" cy="108" r="2.8" fill="#1e293b"/>
+                  <path d="M425 117 Q432 123 439 117" fill="none" stroke="#78350f" stroke-width="2.5" stroke-linecap="round"/>
+                </g>
+
+                <!-- Floating Hearts -->
+                <text x="292" y="102" font-size="24" text-anchor="middle">💖</text>
+                <text x="206" y="76" font-size="20" text-anchor="middle">⭐</text>
+                <text x="394" y="78" font-size="20" text-anchor="middle">🌟</text>
+              </svg>
+            </div>
+
+            <button class="cta-btn anim-item d5" id="start-journey-btn">Pradėkime kelionę! 🚀</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: KAS YRA TOLERANCIJA? -->
+      <section class="slide" data-slide="2">
+        <div class="slide-inner">
+          <div class="badge-pill anim-item d1">📖 1 stotelė: Ką tai reiškia?</div>
+          <h2 class="slide-title anim-item d2">Kas yra tas paslaptingas žodis – TOLERANCIJA? 🤔</h2>
+
+          <div class="glass-box def-banner anim-item d3">
+            <p class="def-text">
+              <span class="highlight-word">Tolerancija</span> – tai pakantumas, pagarba ir draugiškumas!
+              Tai gebėjimas priimti kitą žmogų tokį, koks jis yra – net jei jis atrodo, mąsto ar žaidžia kitaip nei mes.
+            </p>
+          </div>
+
+          <div class="tap-hint anim-item d3">👆 Paspausk ant kiekvienos kortelės, kad ją uždegtum!</div>
+
+          <div class="cards-3">
+            <div class="tol-card anim-item d4" data-tol-card>
+              <span class="big-emoji">👀</span>
+              <h3>Pastebiu ir gerbiu</h3>
+              <p>Kiekvienas vaikas ir suaugęs yra svarbus, ypatingas ir vertas pagarbos.</p>
+            </div>
+
+            <div class="tol-card anim-item d5" data-tol-card>
+              <span class="big-emoji">❤️</span>
+              <h3>Suprantu ir padedu</h3>
+              <p>Stengiuosi įsivaizduoti, kaip jaučiasi mano draugas, ir visada ištiesiu pagalbos ranką.</p>
+            </div>
+
+            <div class="tol-card anim-item d6" data-tol-card>
+              <span class="big-emoji">🤝</span>
+              <h3>Draugauju</h3>
+              <p>Nors visi esame skirtingi, kartu žaisti, kurti ir mokytis yra daug smagiau!</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: SPALVOTI PIEŠTUKAI -->
+      <section class="slide" data-slide="3">
+        <div class="slide-inner">
+          <div class="badge-pill anim-item d1">🎨 2 stotelė: Mūsų įvairovė</div>
+          <h2 class="slide-title anim-item d2">Mes visi skirtingi – kaip spalvoti pieštukai dėžutėje! ✏️</h2>
+
+          <div class="pencils-stage">
+            <div class="glass-box pencil-box-card anim-item d3" id="pencil-box-card">
+              <svg class="pencil-svg-box" viewBox="0 0 440 210" aria-label="Spalvoti pieštukai piešia vaivorykštę">
+                <!-- Rainbow painted stroke -->
+                <g class="rainbow-arc-p">
+                  <path d="M35 80 Q220 5 405 80" fill="none" stroke="#ef4444" stroke-width="10" stroke-linecap="round"/>
+                  <path d="M45 90 Q220 20 395 90" fill="none" stroke="#f59e0b" stroke-width="10" stroke-linecap="round"/>
+                  <path d="M55 100 Q220 35 385 100" fill="none" stroke="#22c55e" stroke-width="10" stroke-linecap="round"/>
+                  <path d="M65 110 Q220 50 375 110" fill="none" stroke="#3b82f6" stroke-width="10" stroke-linecap="round"/>
+                  <path d="M75 120 Q220 65 365 120" fill="none" stroke="#a855f7" stroke-width="10" stroke-linecap="round"/>
+                </g>
+
+                <!-- 6 Colorful Pencils -->
+                <g class="pencil-item" transform="translate(46, 98)">
+                  <polygon points="16,0 32,28 0,28" fill="#fed7aa"/>
+                  <polygon points="16,0 21,9 11,9" fill="#ef4444"/>
+                  <rect x="0" y="28" width="32" height="75" rx="4" fill="#ef4444"/>
+                  <rect x="8" y="28" width="6" height="75" fill="rgba(255,255,255,0.28)"/>
+                </g>
+                <g class="pencil-item" transform="translate(106, 90)">
+                  <polygon points="16,0 32,28 0,28" fill="#fed7aa"/>
+                  <polygon points="16,0 21,9 11,9" fill="#f97316"/>
+                  <rect x="0" y="28" width="32" height="83" rx="4" fill="#f97316"/>
+                  <rect x="8" y="28" width="6" height="83" fill="rgba(255,255,255,0.28)"/>
+                </g>
+                <g class="pencil-item" transform="translate(166, 84)">
+                  <polygon points="16,0 32,28 0,28" fill="#fed7aa"/>
+                  <polygon points="16,0 21,9 11,9" fill="#eab308"/>
+                  <rect x="0" y="28" width="32" height="89" rx="4" fill="#facc15"/>
+                  <rect x="8" y="28" width="6" height="89" fill="rgba(255,255,255,0.28)"/>
+                </g>
+                <g class="pencil-item" transform="translate(226, 84)">
+                  <polygon points="16,0 32,28 0,28" fill="#fed7aa"/>
+                  <polygon points="16,0 21,9 11,9" fill="#22c55e"/>
+                  <rect x="0" y="28" width="32" height="89" rx="4" fill="#22c55e"/>
+                  <rect x="8" y="28" width="6" height="89" fill="rgba(255,255,255,0.28)"/>
+                </g>
+                <g class="pencil-item" transform="translate(286, 90)">
+                  <polygon points="16,0 32,28 0,28" fill="#fed7aa"/>
+                  <polygon points="16,0 21,9 11,9" fill="#3b82f6"/>
+                  <rect x="0" y="28" width="32" height="83" rx="4" fill="#3b82f6"/>
+                  <rect x="8" y="28" width="6" height="83" fill="rgba(255,255,255,0.28)"/>
+                </g>
+                <g class="pencil-item" transform="translate(346, 98)">
+                  <polygon points="16,0 32,28 0,28" fill="#fed7aa"/>
+                  <polygon points="16,0 21,9 11,9" fill="#a855f7"/>
+                  <rect x="0" y="28" width="32" height="75" rx="4" fill="#a855f7"/>
+                  <rect x="8" y="28" width="6" height="75" fill="rgba(255,255,255,0.28)"/>
+                </g>
+              </svg>
+
+              <p style="font-weight:800; text-align:center; font-size:clamp(0.95rem,1.3vw,1.1rem); color:#334155;" id="pencil-caption">
+                Jei visi pieštukai būtų tik pilki – piešinys būtų nuobodus! Kiekviena spalva daro pasaulį gražesnį.
+              </p>
+
+              <button class="tool-btn" id="toggle-grey-btn" style="background:linear-gradient(135deg,#f43f5e,#f59e0b); color:#fff;">
+                🎨 Palygink: Kas būtų be spalvų?
+              </button>
+            </div>
+
+            <div class="diff-list">
+              <div class="diff-item anim-item d4">
+                <div class="diff-icon" style="background:linear-gradient(135deg,#ec4899,#f43f5e);">👧🏽</div>
+                <div>
+                  <h4>Skirtinga išvaizda</h4>
+                  <p>Skiriamės plaukų spalva, ūgiu, šypsena, o kai kas nešioja stilingus akinukus!</p>
+                </div>
+              </div>
+
+              <div class="diff-item anim-item d5">
+                <div class="diff-icon" style="background:linear-gradient(135deg,#3b82f6,#06b6d4);">⚽</div>
+                <div>
+                  <h4>Skirtingi pomėgiai</h4>
+                  <p>Vieni mėgsta ⚽ futbolą, kiti – 🎨 piešimą, 📚 knygas ar 🎵 muziką!</p>
+                </div>
+              </div>
+
+              <div class="diff-item anim-item d6">
+                <div class="diff-icon" style="background:linear-gradient(135deg,#10b981,#22c55e);">🦋</div>
+                <div>
+                  <h4>Skirtingas charakteris</h4>
+                  <p>Vieni greiti, garsūs ir drąsūs, o kiti – ramūs, jautrūs ir kūrybiški.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: MŪSŲ ĮVAIRI LIETUVA -->
+      <section class="slide" data-slide="4">
+        <div class="slide-inner">
+          <div class="badge-pill anim-item d1">🇱🇹 3 stotelė: Mūsų kraštas</div>
+          <h2 class="slide-title anim-item d2">Mūsų įvairi ir graži Lietuva! 💛💚❤️</h2>
+
+          <div class="lt-grid">
+            <div class="glass-box lt-map-card anim-item d3">
+              <svg viewBox="0 0 260 205" style="width:100%; max-width:250px; height:clamp(135px,22vh,185px);">
+                <!-- Stylized friendly Lithuania silhouette in tricolor gradient -->
+                <defs>
+                  <linearGradient id="ltGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#facc15"/>
+                    <stop offset="50%" stop-color="#22c55e"/>
+                    <stop offset="100%" stop-color="#ef4444"/>
+                  </linearGradient>
+                </defs>
+                <path d="M58 46 L108 26 L166 36 L208 64 L224 108 L194 148 L156 178 L108 164 L68 176 L44 134 L34 86 Z"
+                      fill="url(#ltGrad)" stroke="#ffffff" stroke-width="6" stroke-linejoin="round"/>
+                <!-- Friendly stars / hearts on map -->
+                <text x="128" y="96" font-size="36" text-anchor="middle">🏡</text>
+                <text x="84" y="76" font-size="20" text-anchor="middle">🌻</text>
+                <text x="174" y="84" font-size="20" text-anchor="middle">🌲</text>
+                <text x="164" y="142" font-size="22" text-anchor="middle">❤️</text>
+                <text x="92" y="142" font-size="20" text-anchor="middle">🤝</text>
+              </svg>
+              <p style="font-weight:800; font-size:clamp(0.92rem,1.25vw,1.06rem); color:#1e293b;">
+                Mūsų klasėse ir miestuose gyvena įvairių tautybių, tradicijų ir galimybių žmonės!
+              </p>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <div class="glass-box anim-item d4" style="padding:14px 18px;">
+                <h3 style="font-family:var(--font-display); font-size:clamp(1.05rem,1.5vw,1.28rem); margin-bottom:8px; color:#0f172a;">
+                  🗣️ Paspausk ir pasisveikink Lietuvos tarmėmis!
+                </h3>
+                <div class="lt-regions">
+                  <button class="dialect-btn" data-greet="Žemaitija: „Laba dėina!“ 🌊">
+                    <strong>Žemaičiai</strong>
+                    <span>„Laba dėina!“</span>
+                  </button>
+                  <button class="dialect-btn" data-greet="Aukštaitija: „Sveiki gyvi!“ 🌾">
+                    <strong>Aukštaičiai</strong>
+                    <span>„Sveiki gyvi!“</span>
+                  </button>
+                  <button class="dialect-btn" data-greet="Dzūkija: „Labas, dzūkel!“ 🍄">
+                    <strong>Dzūkai</strong>
+                    <span>„Labas, dzūkel!“</span>
+                  </button>
+                  <button class="dialect-btn" data-greet="Suvalkija: „Sveiks, bičiuli!“ 🌻">
+                    <strong>Suvalkiečiai</strong>
+                    <span>„Sveiks, bičiuli!“</span>
+                  </button>
+                </div>
+                <p id="dialect-status" style="margin-top:8px; font-weight:800; color:#047857; font-size:0.98rem;">
+                  Kiekviena tarmė ir kultūra yra tikras lobis! ✨
+                </p>
+              </div>
+
+              <div class="lt-quote-banner anim-item d5">
+                „Skirtumai mus praturtina, o draugystė – sujungia!“ 🌟
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: TOLERANCIJOS SIMBOLIAI IR ŠVYTURYS -->
+      <section class="slide" data-slide="5">
+        <div class="slide-inner">
+          <div class="badge-pill anim-item d1">🏛️ 4 stotelė: Lietuvos mokyklų tradicija</div>
+          <h2 class="slide-title anim-item d2">Tolerancijos simboliai Lietuvoje 🏮</h2>
+
+          <div class="symbols-layout">
+            <div class="symbols-grid">
+              <div class="sym-card anim-item d3">
+                <div class="sym-emoji">🧩</div>
+                <h4>Tolerancijos dėlionė</h4>
+                <p>Kiekviena detalė kitokia, bet tik kartu sudeda gražų paveikslą!</p>
+              </div>
+              <div class="sym-card anim-item d4">
+                <div class="sym-emoji" style="animation-delay:0.4s;">🏠</div>
+                <h4>Tolerancijos namas ir gatvė</h4>
+                <p>Vieta, kurioje kiekvienas jaučiasi saugus, laukiamas ir gerbiamas.</p>
+              </div>
+              <div class="sym-card anim-item d5">
+                <div class="sym-emoji" style="animation-delay:0.8s;">🕊️</div>
+                <h4>Tolerancijos paukštis</h4>
+                <p>Neša gerumo, taikos ir draugiškumo žinią visam pasauliui.</p>
+              </div>
+              <div class="sym-card anim-item d6">
+                <div class="sym-emoji" style="animation-delay:1.2s;">🏮</div>
+                <h4>Tolerancijos švyturys</h4>
+                <p>Šviečia tamsoje ir parodo teisingą draugystės kelią!</p>
+              </div>
+            </div>
+
+            <div class="lighthouse-card anim-item d5" id="lighthouse-card">
+              <svg class="lighthouse-svg" viewBox="0 0 280 210" aria-label="Interaktyvus tolerancijos švyturys">
+                <!-- Stars in night sky -->
+                <circle cx="38" cy="30" r="2.5" fill="#fde047"/>
+                <circle cx="242" cy="28" r="2.5" fill="#fde047"/>
+                <circle cx="220" cy="65" r="2" fill="#ffffff"/>
+                <circle cx="52" cy="72" r="2" fill="#ffffff"/>
+
+                <!-- Light Beams (animated when active) -->
+                <g class="lh-beam-group">
+                  <polygon points="140,58 10,12 10,98" fill="url(#beamLeft)" opacity="0.72"/>
+                  <polygon points="140,58 270,12 270,98" fill="url(#beamRight)" opacity="0.72"/>
+                </g>
+                <defs>
+                  <linearGradient id="beamLeft" x1="1" y1="0.5" x2="0" y2="0.5">
+                    <stop offset="0%" stop-color="#fde047" stop-opacity="0.95"/>
+                    <stop offset="100%" stop-color="#fde047" stop-opacity="0"/>
+                  </linearGradient>
+                  <linearGradient id="beamRight" x1="0" y1="0.5" x2="1" y2="0.5">
+                    <stop offset="0%" stop-color="#fde047" stop-opacity="0.95"/>
+                    <stop offset="100%" stop-color="#fde047" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+
+                <!-- Sea waves -->
+                <path d="M0 185 Q35 172 70 185 T140 185 T210 185 T280 185 L280 210 L0 210 Z" fill="#38bdf8"/>
+                <!-- Rock -->
+                <ellipse cx="140" cy="182" rx="56" ry="16" fill="#64748b"/>
+
+                <!-- Lighthouse Tower -->
+                <polygon points="116,174 164,174 154,74 126,74" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                <!-- Red stripes -->
+                <polygon points="122,124 158,124 156,104 124,104" fill="#ef4444"/>
+                <polygon points="118,158 162,158 160,140 120,140" fill="#ef4444"/>
+
+                <!-- Lantern Room -->
+                <rect x="122" y="68" width="36" height="8" rx="3" fill="#334155"/>
+                <rect class="lh-lantern-glow" x="127" y="46" width="26" height="22" rx="4" fill="#94a3b8"/>
+                <polygon points="120,46 140,26 160,46" fill="#ef4444"/>
+                <!-- Door -->
+                <path d="M133 174 L133 156 A7 7 0 0 1 147 156 L147 174 Z" fill="#334155"/>
+              </svg>
+
+              <button class="lh-btn" id="lighthouse-btn">Įjunk Tolerancijos švyturį! 💡</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: STEBUKLINGI DRAUGYSTĖS ŽODŽIAI -->
+      <section class="slide" data-slide="6">
+        <div class="slide-inner">
+          <div class="badge-pill anim-item d1">🌸 5 stotelė: Žodžių sodas</div>
+          <h2 class="slide-title anim-item d2">Stebuklingi draugystės žodžiai! 🌷✨</h2>
+          <p class="slide-subtitle anim-item d3" id="garden-status">
+            Paspausk ant kiekvieno pumpuro, kad jis pražystų! (Pražydo: 0 / 6)
+          </p>
+
+          <div class="garden-grid">
+            <div class="flower-pot anim-item d2" data-flower data-note="261.63">
+              <svg class="flower-svg" viewBox="0 0 100 100">
+                <line x1="50" y1="88" x2="50" y2="46" stroke="#16a34a" stroke-width="6" stroke-linecap="round"/>
+                <ellipse cx="38" cy="70" rx="11" ry="6" transform="rotate(-25 38 70)" fill="#22c55e"/>
+                <g class="flower-head">
+                  <circle cx="50" cy="24" r="13" fill="#f43f5e"/><circle cx="70" cy="36" r="13" fill="#f43f5e"/>
+                  <circle cx="64" cy="58" r="13" fill="#f43f5e"/><circle cx="36" cy="58" r="13" fill="#f43f5e"/>
+                  <circle cx="30" cy="36" r="13" fill="#f43f5e"/><circle cx="50" cy="44" r="11" fill="#fde047"/>
+                </g>
+              </svg>
+              <div class="flower-word">„Ačiū, kad esi!“</div>
+              <span class="flower-badge">Spustelėk 🌱</span>
+            </div>
+
+            <div class="flower-pot anim-item d3" data-flower data-note="293.66">
+              <svg class="flower-svg" viewBox="0 0 100 100">
+                <line x1="50" y1="88" x2="50" y2="46" stroke="#16a34a" stroke-width="6" stroke-linecap="round"/>
+                <ellipse cx="62" cy="68" rx="11" ry="6" transform="rotate(25 62 68)" fill="#22c55e"/>
+                <g class="flower-head">
+                  <circle cx="50" cy="24" r="13" fill="#f59e0b"/><circle cx="70" cy="36" r="13" fill="#f59e0b"/>
+                  <circle cx="64" cy="58" r="13" fill="#f59e0b"/><circle cx="36" cy="58" r="13" fill="#f59e0b"/>
+                  <circle cx="30" cy="36" r="13" fill="#f59e0b"/><circle cx="50" cy="44" r="11" fill="#fef08a"/>
+                </g>
+              </svg>
+              <div class="flower-word">„Ar galiu tau padėti?“</div>
+              <span class="flower-badge">Spustelėk 🌱</span>
+            </div>
+
+            <div class="flower-pot anim-item d4" data-flower data-note="329.63">
+              <svg class="flower-svg" viewBox="0 0 100 100">
+                <line x1="50" y1="88" x2="50" y2="46" stroke="#16a34a" stroke-width="6" stroke-linecap="round"/>
+                <ellipse cx="38" cy="70" rx="11" ry="6" transform="rotate(-25 38 70)" fill="#22c55e"/>
+                <g class="flower-head">
+                  <circle cx="50" cy="24" r="13" fill="#3b82f6"/><circle cx="70" cy="36" r="13" fill="#3b82f6"/>
+                  <circle cx="64" cy="58" r="13" fill="#3b82f6"/><circle cx="36" cy="58" r="13" fill="#3b82f6"/>
+                  <circle cx="30" cy="36" r="13" fill="#3b82f6"/><circle cx="50" cy="44" r="11" fill="#fde047"/>
+                </g>
+              </svg>
+              <div class="flower-word">„Žaiskime kartu!“</div>
+              <span class="flower-badge">Spustelėk 🌱</span>
+            </div>
+
+            <div class="flower-pot anim-item d4" data-flower data-note="349.23">
+              <svg class="flower-svg" viewBox="0 0 100 100">
+                <line x1="50" y1="88" x2="50" y2="46" stroke="#16a34a" stroke-width="6" stroke-linecap="round"/>
+                <ellipse cx="62" cy="68" rx="11" ry="6" transform="rotate(25 62 68)" fill="#22c55e"/>
+                <g class="flower-head">
+                  <circle cx="50" cy="24" r="13" fill="#a855f7"/><circle cx="70" cy="36" r="13" fill="#a855f7"/>
+                  <circle cx="64" cy="58" r="13" fill="#a855f7"/><circle cx="36" cy="58" r="13" fill="#a855f7"/>
+                  <circle cx="30" cy="36" r="13" fill="#a855f7"/><circle cx="50" cy="44" r="11" fill="#fde047"/>
+                </g>
+              </svg>
+              <div class="flower-word">„Atsiprašau“</div>
+              <span class="flower-badge">Spustelėk 🌱</span>
+            </div>
+
+            <div class="flower-pot anim-item d5" data-flower data-note="392.00">
+              <svg class="flower-svg" viewBox="0 0 100 100">
+                <line x1="50" y1="88" x2="50" y2="46" stroke="#16a34a" stroke-width="6" stroke-linecap="round"/>
+                <ellipse cx="38" cy="70" rx="11" ry="6" transform="rotate(-25 38 70)" fill="#22c55e"/>
+                <g class="flower-head">
+                  <circle cx="50" cy="24" r="13" fill="#ec4899"/><circle cx="70" cy="36" r="13" fill="#ec4899"/>
+                  <circle cx="64" cy="58" r="13" fill="#ec4899"/><circle cx="36" cy="58" r="13" fill="#ec4899"/>
+                  <circle cx="30" cy="36" r="13" fill="#ec4899"/><circle cx="50" cy="44" r="11" fill="#fde047"/>
+                </g>
+              </svg>
+              <div class="flower-word">„Tau puikiai sekasi!“</div>
+              <span class="flower-badge">Spustelėk 🌱</span>
+            </div>
+
+            <div class="flower-pot anim-item d6" data-flower data-note="523.25">
+              <svg class="flower-svg" viewBox="0 0 100 100">
+                <line x1="50" y1="88" x2="50" y2="46" stroke="#16a34a" stroke-width="6" stroke-linecap="round"/>
+                <ellipse cx="62" cy="68" rx="11" ry="6" transform="rotate(25 62 68)" fill="#22c55e"/>
+                <g class="flower-head">
+                  <circle cx="50" cy="24" r="13" fill="#10b981"/><circle cx="70" cy="36" r="13" fill="#10b981"/>
+                  <circle cx="64" cy="58" r="13" fill="#10b981"/><circle cx="36" cy="58" r="13" fill="#10b981"/>
+                  <circle cx="30" cy="36" r="13" fill="#10b981"/><circle cx="50" cy="44" r="11" fill="#fde047"/>
+                </g>
+              </svg>
+              <div class="flower-word">„Nieko tokio, pabandyk dar kartą!“</div>
+              <span class="flower-badge">Spustelėk 🌱</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: EMPATIJOS AKINIAI -->
+      <section class="slide" data-slide="7">
+        <div class="slide-inner">
+          <div class="badge-pill anim-item d1">👓 6 stotelė: Empatijos akiniai</div>
+          <h2 class="slide-title anim-item d2">Empatijos akiniai: Kaip jaučiasi mano draugas? 👓💖</h2>
+          <p class="slide-subtitle anim-item d3">Užsidėkime stebuklingus akinius ir padėkime draugams! Paspausk „Padėk draugui!“:</p>
+
+          <div class="empathy-grid">
+            <div class="emp-card anim-item d3" data-emp-card>
+              <div class="emp-face">😢</div>
+              <p class="emp-sit">Naujokas stovi vienas pertraukos metu ir nieko nepažįsta...</p>
+              <div class="emp-tip">💡 Pakviesk žaisti kartu!</div>
+              <button class="emp-btn">Padėk draugui! ✨</button>
+            </div>
+
+            <div class="emp-card anim-item d4" data-emp-card>
+              <div class="emp-face">😢</div>
+              <p class="emp-sit">Draugui nepavyko sunki užduotis ir jis labai nusiminė...</p>
+              <div class="emp-tip">💡 Padrąsink ir padėk!</div>
+              <button class="emp-btn">Padėk draugui! ✨</button>
+            </div>
+
+            <div class="emp-card anim-item d5" data-emp-card>
+              <div class="emp-face">😢</div>
+              <p class="emp-sit">Vaikas netyčia išbėrė visus savo pieštukus ant grindų...</p>
+              <div class="emp-tip">💡 Padėk surinkti, nesijuok!</div>
+              <button class="emp-btn">Padėk draugui! ✨</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 8: TOLERANCIJOS ŠVIESOFORAS -->
+      <section class="slide" data-slide="8">
+        <div class="slide-inner">
+          <div class="badge-pill anim-item d1">🚦 7 stotelė: Elgesio taisyklės</div>
+          <h2 class="slide-title anim-item d2">Tolerancijos šviesoforas 🚦</h2>
+
+          <div class="traffic-layout">
+            <div class="tl-column tl-green anim-item d3">
+              <h3>🟢 ŽALIA – Tolerantiškas elgesys</h3>
+              <ul class="tl-list">
+                <li>👂 Išklausyti kitą iki galo</li>
+                <li>🎁 Dalintis žaislais ir priemonėmis</li>
+                <li>🤸 Priimti kiekvieną į žaidimą</li>
+                <li>💬 Gerbti kitokią nuomonę</li>
+                <li>🤝 Padėti, kai draugui sunku</li>
+              </ul>
+            </div>
+
+            <div class="traffic-post anim-item d4" aria-label="Šviesoforas">
+              <div class="tl-lamp lamp-r" title="Raudona – STOP netolerancijai!"></div>
+              <div class="tl-lamp lamp-y" title="Geltona – Pagalvok prieš sakydamas!"></div>
+              <div class="tl-lamp lamp-g" title="Žalia – Pirmyn į draugystę!"></div>
+            </div>
+
+            <div class="tl-column tl-red anim-item d5">
+              <h3>🔴 RAUDONA – Netolerantiškas elgesys</h3>
+              <ul class="tl-list">
+                <li>😠 Pravardžiuoti kitus</li>
+                <li>😢 Tyčiotis ar erzinti</li>
+                <li>🚫 Stumdytis ir pyktis</li>
+                <li>🚪 Atstumti iš žaidimo</li>
+                <li>😒 Juoktis iš kito klaidų</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 9: VIKTORINA TOLERANCIJOS DETEKTYVAI -->
+      <section class="slide" data-slide="9">
+        <div class="slide-inner">
+          <div class="badge-pill anim-item d1">🕵️‍♂️ 8 stotelė: Klasės žaidimas</div>
+          <h2 class="slide-title anim-item d2">Žaidimas: „Tolerancijos detektyvai!“ 🔍⭐</h2>
+
+          <div class="glass-box quiz-card anim-item d3">
+            <div class="quiz-hud">
+              <span style="font-family:var(--font-display); font-weight:700; font-size:1.1rem; color:#4338ca;" id="quiz-progress">
+                Situacija 1 iš 5
+              </span>
+              <div class="stars-bar" id="quiz-stars" aria-label="Surinktos žvaigždutės">
+                <span>Taškai:</span>
+                <span class="star-slot">⭐</span>
+                <span class="star-slot">⭐</span>
+                <span class="star-slot">⭐</span>
+                <span class="star-slot">⭐</span>
+                <span class="star-slot">⭐</span>
+              </div>
+            </div>
+
+            <div class="quiz-question-box" id="quiz-question">
+              Kraunama situacija...
+            </div>
+
+            <div class="quiz-actions" id="quiz-actions">
+              <button class="q-btn q-btn-yes" id="btn-tol">👍 Tolerantiška!</button>
+              <button class="q-btn q-btn-no" id="btn-notol">👎 Netolerantiška!</button>
+            </div>
+
+            <div class="quiz-feedback" id="quiz-feedback"></div>
+
+            <div id="quiz-next-wrap" style="display:none; gap:12px;">
+              <button class="cta-btn" id="quiz-next-btn" style="animation:none;">Kita situacija ➡</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 10: 5 TOLERANCIJOS SUPERGALIOS -->
+      <section class="slide" data-slide="10">
+        <div class="slide-inner">
+          <div class="badge-pill anim-item d1">🦸 9 stotelė: Supergalios</div>
+          <h2 class="slide-title anim-item d2">5 Tolerancijos supergalios (Penkių pirštų taisyklė) 🖐️</h2>
+
+          <div class="fingers-layout">
+            <div class="glass-box hand-showcase anim-item d3">
+              <svg class="hand-svg" viewBox="0 0 240 240" aria-label="Penkių pirštų tolerancijos taisyklė">
+                <!-- Friendly Cartoon Hand -->
+                <g stroke="#ffffff" stroke-width="3">
+                  <!-- Palm -->
+                  <rect x="70" y="106" width="94" height="96" rx="34" fill="#fde68a"/>
+                  <!-- Thumb (1) -->
+                  <rect x="30" y="122" width="52" height="28" rx="14" transform="rotate(-28 56 136)" fill="#f43f5e"/>
+                  <!-- Index (2) -->
+                  <rect x="68" y="34" width="24" height="84" rx="12" fill="#f59e0b"/>
+                  <!-- Middle (3) -->
+                  <rect x="97" y="18" width="24" height="96" rx="12" fill="#22c55e"/>
+                  <!-- Ring (4) -->
+                  <rect x="126" y="30" width="24" height="86" rx="12" fill="#3b82f6"/>
+                  <!-- Pinky (5) -->
+                  <rect x="155" y="56" width="22" height="68" rx="11" fill="#a855f7"/>
+                </g>
+                <!-- Numbers on fingertips -->
+                <text x="44" y="138" font-family="Fredoka,sans-serif" font-weight="700" font-size="14" fill="#fff" text-anchor="middle">1</text>
+                <text x="80" y="54" font-family="Fredoka,sans-serif" font-weight="700" font-size="14" fill="#fff" text-anchor="middle">2</text>
+                <text x="109" y="40" font-family="Fredoka,sans-serif" font-weight="700" font-size="14" fill="#fff" text-anchor="middle">3</text>
+                <text x="138" y="52" font-family="Fredoka,sans-serif" font-weight="700" font-size="14" fill="#fff" text-anchor="middle">4</text>
+                <text x="166" y="76" font-family="Fredoka,sans-serif" font-weight="700" font-size="14" fill="#fff" text-anchor="middle">5</text>
+                <!-- Heart in palm -->
+                <text x="117" y="166" font-size="40" text-anchor="middle">💖</text>
+              </svg>
+              <p style="font-weight:800; color:#334155; font-size:0.98rem;">
+                Visos 5 supergalios telpa tavo delne! Paspausk ant taisyklės:
+              </p>
+            </div>
+
+            <div class="superpowers-list">
+              <div class="power-row anim-item d2" data-power>
+                <div class="power-num" style="background:#f43f5e;">1</div>
+                <div>
+                  <h4>😊 Šypsena ir pasisveikinimas</h4>
+                  <p>Šilta šypsena ir „Labas!“ iš karto sukuria gerą nuotaiką.</p>
+                </div>
+              </div>
+              <div class="power-row anim-item d3" data-power>
+                <div class="power-num" style="background:#f59e0b;">2</div>
+                <div>
+                  <h4>👂 Dėmesingas išklausymas</h4>
+                  <p>Nepertrauk draugo – parodyk, kad jo mintys tau rūpi.</p>
+                </div>
+              </div>
+              <div class="power-row anim-item d4" data-power>
+                <div class="power-num" style="background:#22c55e;">3</div>
+                <div>
+                  <h4>🤝 Pagalbos ranka</h4>
+                  <p>Pastebėk, kam sunku, ir pasisiūlyk padėti pirmas.</p>
+                </div>
+              </div>
+              <div class="power-row anim-item d5" data-power>
+                <div class="power-num" style="background:#3b82f6;">4</div>
+                <div>
+                  <h4>💬 Švelnūs ir mandagūs žodžiai</h4>
+                  <p>Žodžiai turi galią – rinkis tuos, kurie džiugina širdį.</p>
+                </div>
+              </div>
+              <div class="power-row anim-item d6" data-power>
+                <div class="power-num" style="background:#a855f7;">5</div>
+                <div>
+                  <h4>❤️ Atvira širdis visiems</h4>
+                  <p>Priimk kiekvieną draugą tokį, koks jis yra!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 11: KŪRYBINĖ UŽDUOTIS KLASEI -->
+      <section class="slide" data-slide="11">
+        <div class="slide-inner">
+          <div class="badge-pill anim-item d1">✂️ 10 stotelė: Kūrybinė užduotis</div>
+          <h2 class="slide-title anim-item d2">Mūsų klasės Tolerancijos Saulė ☀️🖐️</h2>
+
+          <div class="sun-activity-layout">
+            <div class="glass-box sun-instructions anim-item d3">
+              <h3>🎨 Ką veiksim klasėje po pamokos?</h3>
+              <div class="step-chip">1️⃣ Kiekvienas ant spalvoto popieriaus apvedžioja savo delniuką ir jį iškerpa.</div>
+              <div class="step-chip">2️⃣ Ant delniuko užrašo gražų draugystės ar tolerancijos žodį.</div>
+              <div class="step-chip">3️⃣ Visus delniukus suklijuojame aplink didelį ratą – taip gimsta mūsų klasės Tolerancijos Saulė!</div>
+              <p id="sun-counter" style="font-family:var(--font-display); font-weight:700; color:#b45309; font-size:1.08rem; margin-top:4px;">
+                👉 Paspausk ant visų 8 delniukų dešinėje ir įžiebk Saulę! (0 / 8)
+              </p>
+            </div>
+
+            <div class="sun-circle-stage anim-item d4" id="sun-circle-stage">
+              <div class="center-sun" id="center-sun">
+                <span style="font-size:2.1rem;">☀️</span>
+                <span>Mūsų klasė!</span>
+              </div>
+              <!-- 8 clickable handprints generated cleanly around the circle -->
+              <button class="hand-ray" data-word="Draugystė" data-color="#ef4444" style="top:0; left:50%; transform:translate(-50%, 0);">🖐️<span>Draugystė</span></button>
+              <button class="hand-ray" data-word="Pagarba" data-color="#f97316" style="top:14%; right:12%;">🖐️<span>Pagarba</span></button>
+              <button class="hand-ray" data-word="Šypsena" data-color="#eab308" style="top:50%; right:0; transform:translate(0, -50%);">🖐️<span>Šypsena</span></button>
+              <button class="hand-ray" data-word="Pagalba" data-color="#22c55e" style="bottom:14%; right:12%;">🖐️<span>Pagalba</span></button>
+              <button class="hand-ray" data-word="Gerumas" data-color="#06b6d4" style="bottom:0; left:50%; transform:translate(-50%, 0);">🖐️<span>Gerumas</span></button>
+              <button class="hand-ray" data-word="Kantrybė" data-color="#3b82f6" style="bottom:14%; left:12%;">🖐️<span>Kantrybė</span></button>
+              <button class="hand-ray" data-word="Atjauta" data-color="#8b5cf6" style="top:50%; left:0; transform:translate(0, -50%);">🖐️<span>Atjauta</span></button>
+              <button class="hand-ray" data-word="Džiaugsmas" data-color="#ec4899" style="top:14%; left:12%;">🖐️<span>Džiaugsmas</span></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 12: FINALAS IR PAŽADAS -->
+      <section class="slide" data-slide="12">
+        <div class="slide-inner">
+          <div class="glass-box pledge-card anim-item d1">
+            <div class="badge-pill anim-item d1">🏆 Finalas • Mūsų pažadas</div>
+            <h2 class="slide-title anim-item d2">Mūsų klasės Tolerancijos pažadas! 🌈🤝</h2>
+
+            <div class="pledge-lines anim-item d3">
+              <div class="pledge-line">✨ Pažadame būti draugiški, mandagūs ir pastabūs kitiems!</div>
+              <div class="pledge-line">🛡️ Pažadame niekada nesityčioti, nepravardžiuoti ir padėti draugui!</div>
+              <div class="pledge-line">🌈 Pažadame gerbti kiekvieną – nes kartu mes esame nuostabūs!</div>
+            </div>
+
+            <button class="cta-btn anim-item d4" id="pledge-btn">Pasirašome pažadą! 🎉</button>
+
+            <div class="diploma-box" id="diploma-box">
+              <span style="font-size:3rem;">🏆</span>
+              <div style="text-align:left;">
+                <h3>DIPLOMAS: Draugiškiausia ir tolerantiškiausia klasė!</h3>
+                <p style="font-weight:800; font-size:0.98rem;">Jūs sėkmingai įveikėte Tolerancijos dienos kelionę! 💛💚❤️</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Navigation -->
+    <footer class="bottom-bar">
+      <button class="nav-btn" id="prev-btn" disabled>⬅ Atgal</button>
+      <div class="dots-nav" id="dots-nav" aria-label="Skaidrių sąrašas"></div>
+      <button class="nav-btn next-btn" id="next-btn">Pirmyn ➡</button>
+    </footer>
+  </div>
+
+  <script>
+    (() => {
+      const totalSlides = 12;
+      let currentSlide = 1;
+      let soundEnabled = true;
+      let audioCtx = null;
+
+      const deck = document.getElementById('deck');
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      const dotsNav = document.getElementById('dots-nav');
+      const progressFill = document.getElementById('progress-fill');
+      const slideCounter = document.getElementById('slide-counter');
+      const soundBtn = document.getElementById('sound-btn');
+      const fireworksBtn = document.getElementById('fireworks-btn');
+      const fullscreenBtn = document.getElementById('fullscreen-btn');
+
+      /* ================== WEB AUDIO SYNTHESIZER ================== */
+      function ensureAudio() {
+        if (!soundEnabled) return null;
+        if (!audioCtx) {
+          const Ctx = window.AudioContext || window.webkitAudioContext;
+          if (Ctx) audioCtx = new Ctx();
+        }
+        if (audioCtx && audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        return audioCtx;
+      }
+
+      function playTone(freq, duration = 0.16, type = 'sine', volume = 0.12, delay = 0) {
+        const ctx = ensureAudio();
+        if (!ctx) return;
+        const now = ctx.currentTime + delay;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, now);
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.exponentialRampToValueAtTime(volume, now + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + duration + 0.02);
+      }
+
+      function playChime() {
+        playTone(523.25, 0.14, 'triangle', 0.11, 0);
+        playTone(659.25, 0.18, 'triangle', 0.11, 0.07);
+      }
+
+      function playSuccess() {
+        playTone(523.25, 0.14, 'sine', 0.12, 0);
+        playTone(659.25, 0.14, 'sine', 0.12, 0.09);
+        playTone(783.99, 0.24, 'sine', 0.13, 0.18);
+      }
+
+      function playGentleError() {
+        playTone(300, 0.16, 'triangle', 0.1, 0);
+        playTone(240, 0.22, 'triangle', 0.1, 0.12);
+      }
+
+      function playFanfare() {
+        const notes = [523.25, 659.25, 783.99, 1046.5];
+        notes.forEach((f, idx) => playTone(f, 0.25, 'triangle', 0.14, idx * 0.1));
+        playTone(1046.5, 0.55, 'sine', 0.14, 0.45);
+      }
+
+      /* ================== CONFETTI / FIREWORKS CANVAS ================== */
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx2d = canvas.getContext('2d');
+      let particles = [];
+      let animFrameId = null;
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+
+      const confettiColors = ['#ef4444', '#f97316', '#facc15', '#22c55e', '#3b82f6', '#a855f7', '#ec4899'];
+
+      function launchConfetti(count = 110, originX = canvas.width / 2, originY = canvas.height * 0.45) {
+        for (let i = 0; i < count; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 3 + Math.random() * 11;
+          particles.push({
+            x: originX,
+            y: originY,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed - 4,
+            size: 6 + Math.random() * 8,
+            color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
+            rotation: Math.random() * 360,
+            rotSpeed: (Math.random() - 0.5) * 14,
+            life: 1
+          });
+        }
+        if (!animFrameId) tickConfetti();
+      }
+
+      function launchCelebration() {
+        launchConfetti(90, canvas.width * 0.28, canvas.height * 0.45);
+        launchConfetti(90, canvas.width * 0.72, canvas.height * 0.45);
+        setTimeout(() => launchConfetti(120, canvas.width * 0.5, canvas.height * 0.3), 240);
+      }
+
+      function tickConfetti() {
+        ctx2d.clearRect(0, 0, canvas.width, canvas.height);
+        particles = particles.filter(p => p.life > 0.02 && p.y < canvas.height + 30);
+        for (const p of particles) {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.25;
+          p.vx *= 0.985;
+          p.rotation += p.rotSpeed;
+          p.life -= 0.009;
+
+          ctx2d.save();
+          ctx2d.globalAlpha = Math.max(0, p.life);
+          ctx2d.translate(p.x, p.y);
+          ctx2d.rotate((p.rotation * Math.PI) / 180);
+          ctx2d.fillStyle = p.color;
+          ctx2d.fillRect(-p.size / 2, -p.size / 3, p.size, p.size * 0.65);
+          ctx2d.restore();
+        }
+        if (particles.length > 0) {
+          animFrameId = requestAnimationFrame(tickConfetti);
+        } else {
+          ctx2d.clearRect(0, 0, canvas.width, canvas.height);
+          animFrameId = null;
+        }
+      }
+
+      /* ================== NAVIGATION ================== */
+      for (let i = 1; i <= totalSlides; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'dot-btn' + (i === 1 ? ' active' : '');
+        dot.title = `Skaidrė ${i}`;
+        dot.setAttribute('aria-label', `Pereiti į ${i} skaidrę`);
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsNav.appendChild(dot);
+      }
+
+      function goToSlide(target) {
+        if (target < 1 || target > totalSlides || target === currentSlide) return;
+        const prev = currentSlide;
+        currentSlide = target;
+
+        slides.forEach((s, idx) => {
+          const num = idx + 1;
+          s.classList.remove('active', 'prev-slide');
+          if (num === currentSlide) {
+            s.classList.add('active');
+          } else if (num < currentSlide) {
+            s.classList.add('prev-slide');
+          }
+        });
+
+        deck.setAttribute('data-theme', String(currentSlide));
+        progressFill.style.width = `${(currentSlide / totalSlides) * 100}%`;
+        slideCounter.textContent = `${currentSlide} / ${totalSlides}`;
+        prevBtn.disabled = currentSlide === 1;
+        nextBtn.disabled = currentSlide === totalSlides;
+
+        Array.from(dotsNav.children).forEach((dot, idx) => {
+          dot.classList.toggle('active', idx + 1 === currentSlide);
+        });
+
+        if (prev !== currentSlide) {
+          playTone(440 + currentSlide * 18, 0.08, 'sine', 0.06);
+        }
+      }
+
+      prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
+      nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
+
+      document.getElementById('start-journey-btn').addEventListener('click', () => {
+        playSuccess();
+        launchConfetti(45, canvas.width / 2, canvas.height * 0.6);
+        goToSlide(2);
+      });
+
+      /* Keyboard & Touch Swipe */
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ') {
+          e.preventDefault();
+          goToSlide(currentSlide + 1);
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          goToSlide(currentSlide - 1);
+        } else if (e.key.toLowerCase() === 'f') {
+          toggleFullscreen();
+        }
+      });
+
+      let touchStartX = 0;
+      document.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].clientX;
+      }, { passive: true });
+      document.addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 55) {
+          if (dx < 0) goToSlide(currentSlide + 1);
+          else goToSlide(currentSlide - 1);
+        }
+      }, { passive: true });
+
+      /* Top Controls */
+      soundBtn.addEventListener('click', () => {
+        soundEnabled = !soundEnabled;
+        soundBtn.textContent = soundEnabled ? '🔊 Garsas' : '🔇 Be garso';
+        soundBtn.classList.toggle('muted', !soundEnabled);
+        if (soundEnabled) playChime();
+      });
+
+      fireworksBtn.addEventListener('click', () => {
+        playFanfare();
+        launchCelebration();
+      });
+
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen?.().catch(() => {});
+        } else {
+          document.exitFullscreen?.().catch(() => {});
+        }
+      }
+      fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+      /* ================== SLIDE 2: TOLERANCE CARDS ================== */
+      document.querySelectorAll('[data-tol-card]').forEach(card => {
+        card.addEventListener('click', () => {
+          card.classList.toggle('lit');
+          playChime();
+        });
+      });
+
+      /* ================== SLIDE 3: GREY VS COLOR PENCILS ================== */
+      const pencilCard = document.getElementById('pencil-box-card');
+      const toggleGreyBtn = document.getElementById('toggle-grey-btn');
+      const pencilCaption = document.getElementById('pencil-caption');
+      let isGrey = false;
+
+      toggleGreyBtn.addEventListener('click', () => {
+        isGrey = !isGrey;
+        pencilCard.classList.toggle('grey-mode', isGrey);
+        if (isGrey) {
+          toggleGreyBtn.textContent = '🌈 Grąžink visas spalvas!';
+          pencilCaption.textContent = 'O ne! Kai viskas tik pilka, pasaulis tampa liūdnas ir vienodas...';
+          playGentleError();
+        } else {
+          toggleGreyBtn.textContent = '🎨 Palygink: Kas būtų be spalvų?';
+          pencilCaption.textContent = 'Jei visi pieštukai būtų tik pilki – piešinys būtų nuobodus! Kiekviena spalva daro pasaulį gražesnį.';
+          playSuccess();
+        }
+      });
+
+      /* ================== SLIDE 4: LITHUANIAN DIALECTS ================== */
+      const dialectStatus = document.getElementById('dialect-status');
+      document.querySelectorAll('.dialect-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.dialect-btn').forEach(b => b.classList.remove('active-dialect'));
+          btn.classList.add('active-dialect');
+          dialectStatus.textContent = btn.dataset.greet + ' — Kaip gražiai skamba!';
+          playChime();
+        });
+      });
+
+      /* ================== SLIDE 5: LIGHTHOUSE ================== */
+      const lhCard = document.getElementById('lighthouse-card');
+      const lhBtn = document.getElementById('lighthouse-btn');
+      lhBtn.addEventListener('click', () => {
+        const active = lhCard.classList.toggle('beam-on');
+        if (active) {
+          lhBtn.textContent = 'Švyturys šviečia! ✨ (Išjungti)';
+          playSuccess();
+          launchConfetti(35, canvas.width * 0.72, canvas.height * 0.45);
+        } else {
+          lhBtn.textContent = 'Įjunk Tolerancijos švyturį! 💡';
+          playTone(350, 0.12);
+        }
+      });
+
+      /* ================== SLIDE 6: MAGIC WORDS GARDEN ================== */
+      const gardenStatus = document.getElementById('garden-status');
+      const flowers = document.querySelectorAll('[data-flower]');
+      let bloomedCount = 0;
+
+      flowers.forEach(flower => {
+        flower.addEventListener('click', () => {
+          const note = parseFloat(flower.dataset.note || '440');
+          if (!flower.classList.contains('bloomed')) {
+            flower.classList.add('bloomed');
+            flower.querySelector('.flower-badge').textContent = 'Pražydo! 🌸';
+            bloomedCount++;
+            playTone(note, 0.25, 'triangle', 0.13);
+            playTone(note * 1.25, 0.22, 'sine', 0.09, 0.08);
+
+            if (bloomedCount === flowers.length) {
+              gardenStatus.textContent = '🎉 Valio! Visas draugystės sodas pražydo! (6 / 6)';
+              playFanfare();
+              launchConfetti(60, canvas.width / 2, canvas.height * 0.4);
+            } else {
+              gardenStatus.textContent = `Paspausk ant kiekvieno pumpuro, kad jis pražystų! (Pražydo: ${bloomedCount} / 6)`;
+            }
+          } else {
+            playTone(note, 0.18, 'triangle', 0.1);
+          }
+        });
+      });
+
+      /* ================== SLIDE 7: EMPATHY GLASSES ================== */
+      document.querySelectorAll('[data-emp-card]').forEach(card => {
+        const btn = card.querySelector('.emp-btn');
+        const face = card.querySelector('.emp-face');
+        btn.addEventListener('click', () => {
+          const helped = card.classList.toggle('helped');
+          if (helped) {
+            face.textContent = '😊';
+            btn.textContent = 'Ačiū, drauge! 💖';
+            playSuccess();
+          } else {
+            face.textContent = '😢';
+            btn.textContent = 'Padėk draugui! ✨';
+          }
+        });
+      });
+
+      /* ================== SLIDE 9: TOLERANCE DETECTIVES QUIZ ================== */
+      const quizData = [
+        {
+          q: '1. Tomas pastebėjo, kad naujokė Liepa per pertrauką sėdi viena, ir pakvietė ją kartu piešti.',
+          ans: true,
+          ok: 'Puiku! Tai labai draugiškas ir tolerantiškas poelgis – niekas neturi jaustis vienišas!',
+          bad: 'O ne! Pagalvok dar kartą: pakviesti naujoką žaisti yra labai tolerantiška ir gražu!'
+        },
+        {
+          q: '2. Klasėje vaikai juokiasi iš Manto, nes jis nešioja akinius ir lėčiau skaito.',
+          ans: false,
+          ok: 'Teisingai, detektyve! Juoktis iš kitų yra netolerantiška – kiekvienas mokomės savo tempu.',
+          bad: 'Atsargiai! Juoktis iš draugo išvaizdos ar klaidų – netolerantiška ir labai skaudina.'
+        },
+        {
+          q: '3. Komandoje vieni nori žaisti futbolą, o kiti – kvadratą. Vaikai susitarė pažaisti abu žaidimus iš eilės.',
+          ans: true,
+          ok: 'Šaunuoliai! Gebėjimas susitarti ir gerbti visų norus yra tikra tolerancija!',
+          bad: 'Tikrai ne! Susitarti taip, kad visiems būtų smagu, yra labai tolerantiška.'
+        },
+        {
+          q: '4. Per dailės pamoką Emilijai netyčia išsipylė dažai. Draugė Gabija greitai padavė servetėlę ir padėjo nuvalyti stalą.',
+          ans: true,
+          ok: 'Taip! Padėti draugui bėdoje ir nesijuokti iš nelaimės yra tikro draugo bruožas!',
+          bad: 'Pagalvokime iš naujo: pagalba netyčia suklydusiam draugui yra tolerantiška!'
+        },
+        {
+          q: '5. Simonas neleidžia Gustui sėsti prie bendro stalo, nes Gustas mėgsta kitas spalvas ir kitą muziką.',
+          ans: false,
+          ok: 'Teisingai pastebėta! Mūsų skirtingi pomėgiai neturi trukdyti draugystei.',
+          bad: 'Oi! Atstumti draugą vien todėl, kad jo pomėgiai kitokie, yra netolerantiška.'
+        }
+      ];
+
+      let qIdx = 0;
+      let qScore = 0;
+      let qAnswered = false;
+      const qProgressEl = document.getElementById('quiz-progress');
+      const qStarsSlots = document.querySelectorAll('#quiz-stars .star-slot');
+      const qQuestionEl = document.getElementById('quiz-question');
+      const qFeedbackEl = document.getElementById('quiz-feedback');
+      const qNextWrap = document.getElementById('quiz-next-wrap');
+      const qNextBtn = document.getElementById('quiz-next-btn');
+      const btnTol = document.getElementById('btn-tol');
+      const btnNoTol = document.getElementById('btn-notol');
+      const quizActions = document.getElementById('quiz-actions');
+
+      function renderQuiz() {
+        const item = quizData[qIdx];
+        qAnswered = false;
+        qProgressEl.textContent = `Situacija ${qIdx + 1} iš ${quizData.length}`;
+        qQuestionEl.textContent = item.q;
+        qFeedbackEl.className = 'quiz-feedback';
+        qFeedbackEl.textContent = '';
+        qNextWrap.style.display = 'none';
+        quizActions.style.display = 'flex';
+        btnTol.disabled = false;
+        btnNoTol.disabled = false;
+      }
+
+      function handleQuizAnswer(userChoice) {
+        if (qAnswered) return;
+        qAnswered = true;
+        btnTol.disabled = true;
+        btnNoTol.disabled = true;
+        const item = quizData[qIdx];
+        const correct = userChoice === item.ans;
+
+        if (correct) {
+          qStarsSlots[qIdx]?.classList.add('earned');
+          qScore++;
+          qFeedbackEl.className = 'quiz-feedback ok';
+          qFeedbackEl.textContent = '✅ ' + item.ok;
+          playSuccess();
+        } else {
+          qFeedbackEl.className = 'quiz-feedback bad';
+          qFeedbackEl.textContent = '💡 ' + item.bad;
+          playGentleError();
+        }
+
+        qNextWrap.style.display = 'flex';
+        if (qIdx === quizData.length - 1) {
+          qNextBtn.textContent = 'Pamatyti rezultatą! 🏆';
+        } else {
+          qNextBtn.textContent = 'Kita situacija ➡';
+        }
+      }
+
+      btnTol.addEventListener('click', () => handleQuizAnswer(true));
+      btnNoTol.addEventListener('click', () => handleQuizAnswer(false));
+
+      qNextBtn.addEventListener('click', () => {
+        if (qIdx < quizData.length - 1) {
+          qIdx++;
+          renderQuiz();
+        } else if (qNextBtn.dataset.finished === '1') {
+          qIdx = 0;
+          qScore = 0;
+          qNextBtn.dataset.finished = '0';
+          qStarsSlots.forEach(s => s.classList.remove('earned'));
+          renderQuiz();
+        } else {
+          quizActions.style.display = 'none';
+          qNextBtn.dataset.finished = '1';
+          qNextBtn.textContent = 'Žaisti dar kartą 🔄';
+          if (qScore === quizData.length) {
+            qQuestionEl.textContent = `🏆 VALIO! Surinkote visas ${qScore} iš 5 žvaigždučių! Jūs – tikri Tolerancijos detektyvai!`;
+            qFeedbackEl.className = 'quiz-feedback ok';
+            qFeedbackEl.textContent = '🎉 Šauniai padirbėjote! Jūsų klasė puikiai skiria draugišką elgesį!';
+            playFanfare();
+            launchCelebration();
+          } else {
+            qQuestionEl.textContent = `🌟 Puiku! Surinkote ${qScore} iš 5 žvaigždučių!`;
+            qFeedbackEl.className = 'quiz-feedback ok';
+            qFeedbackEl.textContent = 'Galite pažaisti dar kartą ir pabandyti surinkti visas 5 žvaigždutes!';
+            playSuccess();
+          }
+        }
+      });
+
+      renderQuiz();
+
+      /* ================== SLIDE 10: 5 SUPERPOWERS ================== */
+      document.querySelectorAll('[data-power]').forEach(row => {
+        row.addEventListener('click', () => {
+          row.classList.toggle('active-power');
+          playChime();
+        });
+      });
+
+      /* ================== SLIDE 11: CLASS TOLERANCE SUN ================== */
+      const handRays = document.querySelectorAll('.hand-ray');
+      const centerSun = document.getElementById('center-sun');
+      const sunCounter = document.getElementById('sun-counter');
+      let litHands = 0;
+
+      handRays.forEach(ray => {
+        ray.addEventListener('click', () => {
+          if (!ray.classList.contains('lit')) {
+            ray.classList.add('lit');
+            ray.style.background = ray.dataset.color;
+            litHands++;
+            playTone(380 + litHands * 45, 0.2, 'triangle', 0.12);
+
+            if (litHands === handRays.length) {
+              centerSun.classList.add('all-lit');
+              sunCounter.textContent = '🌞 NUOSTABU! Mūsų klasės Tolerancijos Saulė šviečia visu ryškumu! (8 / 8)';
+              playFanfare();
+              launchConfetti(80, canvas.width * 0.68, canvas.height * 0.5);
+            } else {
+              sunCounter.textContent = `👉 Paspausk ant visų 8 delniukų dešinėje ir įžiebk Saulę! (${litHands} / 8)`;
+            }
+          } else {
+            playChime();
+          }
+        });
+      });
+
+      /* ================== SLIDE 12: FINALE PLEDGE ================== */
+      const pledgeBtn = document.getElementById('pledge-btn');
+      const diplomaBox = document.getElementById('diploma-box');
+      pledgeBtn.addEventListener('click', () => {
+        diplomaBox.classList.add('show');
+        pledgeBtn.textContent = 'Pažadas priimtas! 🎉👏';
+        pledgeBtn.style.animation = 'none';
+        playFanfare();
+        launchCelebration();
+      });
+    })();
+  </script>
+</body>
+</html>
